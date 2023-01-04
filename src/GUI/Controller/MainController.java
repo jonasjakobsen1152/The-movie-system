@@ -16,12 +16,6 @@ public class MainController {
     public Button btnDeleteMovie;
     public Button btnCreateCategory;
     public Button btnDeleteCategory;
-    @FXML
-    private Label lbl;
-
-    public void clickBtn(ActionEvent actionEvent) {
-        lbl.setText("Huh?");
-    }
 
     public void handleAddMovieToCategory(ActionEvent actionEvent) {
     }
