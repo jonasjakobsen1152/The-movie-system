@@ -5,9 +5,9 @@ import BE.Movie;
 import java.util.List;
 
 public interface IMovieDAO {
-    public List<Movie> getAllSongs() throws Exception;;
+    public List<Movie> getAllMovies() throws Exception;;
 
-    public Movie createMovie(int id, String title, int year, float imdbRating, float personalRating, String filepath) throws Exception;;
+    public Movie createMovie(String title, String year, float imdbRating, float personalRating, String filePath) throws Exception;
 
     public void deleteMovie(Movie movie) throws Exception;
 }
