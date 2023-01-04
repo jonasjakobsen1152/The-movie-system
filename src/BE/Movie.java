@@ -32,11 +32,6 @@ public class Movie {
 
     @Override
     public String toString() {
-        return title
-                ", title='" + title + '\'' +
-                ", year=" + year +
-                ", imdbRating=" + imdbRating +
-                ", personalRating=" + personalRating +
-                '}';
+        return title + imdbRating + personalRating;
     }
 }
