@@ -1,6 +1,8 @@
 package GUI.Controller;
 
+import GUI.Model.MovieModel;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -10,6 +12,7 @@ import java.io.File;
 
 public class MovieDataInputs {
 
+    private MovieModel movieModel = new MovieModel();
     public TextField txtTitle;
     public TextField txtIMDBRating;
     public TextField txtPersonalRating;
@@ -35,6 +38,18 @@ public class MovieDataInputs {
     }
 
     public void handleCreateMovie(ActionEvent actionEvent) {
+        String Title = txtTitle.getText();
+        Float PersonalRating = Float.valueOf(txtPersonalRating.getText());
+        Float IMDBRating = Float.valueOf(txtIMDBRating.getText());
+        String Year = txtYear.getText();
+        String FilePath = txtFilePath.getText();
+        try{
+           // movieModel.createMovie(Title, PersonalRating, IMDBRating, Year,FilePath);
+            Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleCreationCancel(ActionEvent actionEvent) {
