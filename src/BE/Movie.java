@@ -3,13 +3,13 @@ package BE;
 public class Movie {
     private int id;
     private String title;
-    private int year;
+    private String year;
     private float imdbRating;
     private float personalRating;
     private String filepath;
 
 
-    public Movie(int id, String title, int year, float imdbRating, float personalRating, String filepath){
+    public Movie(int id, String title, String year, float imdbRating, float personalRating, String filepath){
         this.id = id;
         this.title = title;
         this.year = year;
@@ -22,7 +22,7 @@ public class Movie {
 
     public String getTitle() {return title;}
 
-    public int getYear() {return year;}
+    public String getYear() {return year;}
 
     public float getImdbRating() {return imdbRating;}
 
