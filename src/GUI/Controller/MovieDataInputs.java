@@ -9,6 +9,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class MovieDataInputs {
 
@@ -21,19 +25,23 @@ public class MovieDataInputs {
     public Button btnCreateMovie;
     public Button txtChooseFile;
     public Button btnCancel;
+    private File file;
+    private String targetString = "MovieFiles";
+    private Path target = Paths.get(targetString);
 
     public void handleChooseFile(ActionEvent actionEvent) {
         String fileName;
         Stage stage = new Stage();
         FileChooser fc = new FileChooser();
-        File file = fc.showOpenDialog(stage);
+        file = fc.showOpenDialog(stage);
         if (file != null) {
 
-            fileName = file.toURI().toString();
+            /*fileName = file.toURI().toString();
             fileName=fileName.substring(6);
             String newFile = fileName;
             fileName = newFile.replace("%20"," ");
-            txtFilePath.setText(fileName);
+            txtFilePath.setText(fileName);*/
+            txtFilePath.setText(file.toURI().toString());
         }
     }
 
@@ -43,6 +51,11 @@ public class MovieDataInputs {
         Float IMDBRating = Float.valueOf(txtIMDBRating.getText());
         String Year = txtYear.getText();
         String FilePath = txtFilePath.getText();
+        try {
+            Files.copy(file.toPath(), target.resolve(file.toPath().getFileName()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         try{
            // movieModel.createMovie(Title, PersonalRating, IMDBRating, Year,FilePath);
             Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
