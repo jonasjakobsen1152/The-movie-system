@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="561.0" prefWidth="864.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MainController">
+   <children>
+      <ListView layoutX="20.0" layoutY="38.0" prefHeight="461.0" prefWidth="235.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="40.0" />
+      <TableView layoutX="267.0" layoutY="41.0" prefHeight="461.0" prefWidth="224.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="40.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <TableView layoutX="596.0" layoutY="38.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.topAnchor="40.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
