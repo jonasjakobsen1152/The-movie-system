@@ -4,7 +4,7 @@ public class MRSModel {
     private MovieModel movieModel;
     private CategoryModel categoryModel;
 
-    public MRSModel(){
+    public MRSModel() throws Exception {
         movieModel = new MovieModel();
         categoryModel = new CategoryModel();
 

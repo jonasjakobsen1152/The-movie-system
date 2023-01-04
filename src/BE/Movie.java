@@ -9,10 +9,9 @@ public class Movie {
     private String filepath;
 
 
-    public Movie(int id, String title, String year, float imdbRating, float personalRating, String filepath){
+    public Movie(int id, String title, float imdbRating, float personalRating, String filepath){
         this.id = id;
         this.title = title;
-        this.year = year;
         this.imdbRating = imdbRating;
         this.personalRating = personalRating;
         this.filepath = filepath;
@@ -21,8 +20,6 @@ public class Movie {
     public int getId() {return id;}
 
     public String getTitle() {return title;}
-
-    public String getYear() {return year;}
 
     public float getImdbRating() {return imdbRating;}
 

@@ -29,6 +29,9 @@ public class MovieDataInputs {
     private String targetString = "MovieFiles";
     private Path target = Paths.get(targetString);
 
+    public MovieDataInputs() throws Exception {
+    }
+
     public void handleChooseFile(ActionEvent actionEvent) {
         String fileName;
         Stage stage = new Stage();
