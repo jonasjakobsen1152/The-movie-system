@@ -31,10 +31,10 @@ public class MainController {
 
     public void initialize (URL url, ResourceBundle resourceBundle){
         //Sets the tableView, and then what it should show.
+        lstMovies.setItems(movieModel.getObservableSong());
         clmTitle.setCellFactory(new PropertyValueFactory<Movie,String>("Title"));
         clmIMDB.setCellFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
         clmIMDB.setCellFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
-        lstMovies.setItems(movieModel.getObservableSong());
 
         txtFilter.textProperty().addListener((((observable, oldValue, newValue) -> { //If value changes it runs the following code
             try {
@@ -44,6 +44,8 @@ public class MainController {
             }
         })));
     }
+    
+
 
     /*
     A method to Add new movies to the database
