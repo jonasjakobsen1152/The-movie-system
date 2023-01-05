@@ -12,7 +12,7 @@ public class MovieDAO_DB implements IMovieDAO {
         databaseConnector = new MyDatabaseConnector();
     }
 
-
+@Override
     public List<Movie> getAllMovies() throws Exception {
         ArrayList<Movie> allMovies = new ArrayList<>();
 
@@ -33,8 +33,14 @@ public class MovieDAO_DB implements IMovieDAO {
                 Movie movie = new Movie(id,title,PersonalRating,IMDBRating,filePath);
                 allMovies.add(movie);
             }
+            return allMovies;
+
+        }        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            throw new Exception("Could not get Songs from database", ex);
         }
-        return allMovies;
+
     }
 
 

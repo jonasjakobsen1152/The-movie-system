@@ -3,9 +3,8 @@ package BE;
 public class Movie {
     private int id;
     private String title;
-    private String year;
-    private float imdbRating;
-    private float personalRating;
+    private Float imdbRating;
+    private Float personalRating;
     private String filepath;
 
 
@@ -21,9 +20,9 @@ public class Movie {
 
     public String getTitle() {return title;}
 
-    public float getImdbRating() {return imdbRating;}
+    public Float getImdbRating() {return imdbRating;}
 
-    public float getPersonalRating() {return personalRating;}
+    public Float getPersonalRating() {return personalRating;}
 
     public String getFilepath() {return filepath;}
 
