@@ -18,8 +18,7 @@
       </Text>
       <Button fx:id="txtChooseFile" layoutX="258.0" layoutY="213.0" mnemonicParsing="false" onAction="#handleChooseFile" text="Choose a file" />
       <TextField fx:id="txtFilePath" editable="false" layoutX="83.0" layoutY="213.0" promptText="FilePath" />
-      <Button fx:id="btnCreateMovie" layoutX="83.0" layoutY="319.0" mnemonicParsing="false" onAction="#handleCreateMovie" text="Create Movie" />
-      <Button fx:id="btnCancel" layoutX="206.0" layoutY="319.0" mnemonicParsing="false" onAction="#handleCreationCancel" text="Cancel" />
-      <TextField fx:id="txtIMDBLINK" layoutX="83.0" layoutY="256.0" promptText="IMDB Link page" />
+      <Button fx:id="btnCreateMovie" layoutX="83.0" layoutY="264.0" mnemonicParsing="false" onAction="#handleCreateMovie" text="Create Movie" />
+      <Button fx:id="btnCancel" layoutX="206.0" layoutY="264.0" mnemonicParsing="false" onAction="#handleCreationCancel" text="Cancel" />
    </children>
 </AnchorPane>
