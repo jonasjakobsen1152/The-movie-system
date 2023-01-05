@@ -3,7 +3,6 @@ package BE;
 public class Movie {
     private int id;
     private String title;
-    private String year;
     private float imdbRating;
     private float personalRating;
     private String filepath;
