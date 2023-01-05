@@ -47,7 +47,7 @@ public class MovieDAO_DB implements IMovieDAO {
     @Override
     public Movie createMovie(String title, float imdbRating, float personalRating, String filePath) throws Exception {
 
-        String sql = "INSERT INTO movie (Id,Title,IMDBRating,PersonalRating,FilePath) VALUES (?,?,?,?,?);";
+        String sql = "INSERT INTO movie (MovieID,Title,IMDBRating,PersonalRating,FilePath) VALUES (?,?,?,?,?);";
 
 
         try (Connection conn = databaseConnector.getConnection()) {
@@ -79,6 +79,20 @@ public class MovieDAO_DB implements IMovieDAO {
 
     @Override
     public void deleteMovie(Movie movie) throws Exception {
+        try (Connection conn = databaseConnector.getConnection()) {
+            String sql = "DELETE FROM Movie WHERE Title = (?) AND MovieID = (?);";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, movie.getTitle());
+            stmt.setInt(2, movie.getId());
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException ex){
+            ex.printStackTrace();
+            throw new Exception(ex);
+        }
 
     }
 }

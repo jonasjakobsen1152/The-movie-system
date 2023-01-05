@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController extends BaseController implements Initializable {
@@ -128,10 +129,31 @@ public class MainController extends BaseController implements Initializable {
 
     }
 
+    public Movie getSelectedMovie(){
+        Movie movie;
+        movie = lstMovies.getSelectionModel().getSelectedItem();
+        return movie;
+    }
+
     /*
     A method to delete movies from the database
      */
-    public void handleDeleteMovie(ActionEvent actionEvent) {
+    public void handleDeleteMovie(ActionEvent actionEvent) throws Exception {
+        Movie selectedMovie = lstMovies.getSelectionModel().getSelectedItem();
+        if(selectedMovie == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Select a movie");
+            alert.setHeaderText("Chose a movie to delete");
+            alert.show();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Are you sure you want to delete: " + selectedMovie.getTitle().concat("?"));
+            Optional<ButtonType> action = alert.showAndWait();
+            if(action.get()==ButtonType.OK){
+                movieModel.deleteMovie(getSelectedMovie());
+            }
+        }
     }
 
     /*

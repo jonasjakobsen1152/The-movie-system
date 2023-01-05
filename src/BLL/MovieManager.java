@@ -29,6 +29,10 @@ public class MovieManager {
         return movieDAO.createMovie(title, imdbRating, personalRating, filePath);
     }
 
+    public void deleteMovie(Movie movie) throws Exception {
+        movieDAO.deleteMovie(movie);
+    }
+
 
 
 }
