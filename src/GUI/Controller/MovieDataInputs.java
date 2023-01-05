@@ -58,6 +58,7 @@ public class MovieDataInputs {
         try {
            movieModel.createMovie(Title, PersonalRating, IMDBRating, FilePath);
            Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+           stage.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
