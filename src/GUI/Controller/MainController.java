@@ -35,6 +35,9 @@ public class MainController extends BaseController implements Initializable {
 
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle){
+        lstMovies.setItems(movieModel.getObservableMovie());
+        //lstCategories.setItems(); TODO Implement this when implementing category
+        //TODO implement MODEL-songs on category
     try {
         movieModel = new MovieModel();
     } catch (Exception e) {
@@ -66,9 +69,10 @@ public class MainController extends BaseController implements Initializable {
     public void showAllMoviesCategories(){
         //Sets the tableView, and then what it should show.
         lstMovies.setItems(movieModel.getObservableMovie());
-        clmTitle.setCellFactory(new PropertyValueFactory<Movie,String>("Title"));
-        clmIMDB.setCellFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
-        clmIMDB.setCellFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
+        System.out.println(movie.getTitle());
+        //clmTitle.setCellFactory(new PropertyValueFactory<Movie,String>("title"));
+       // clmIMDB.setCellFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
+       // clmIMDB.setCellFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
     }
 
 
