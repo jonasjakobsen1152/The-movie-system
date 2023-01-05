@@ -1,5 +1,6 @@
 package GUI.Controller;
 
+import BE.Movie;
 import GUI.Model.MovieModel;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -25,6 +26,7 @@ public class MovieDataInputs {
     public Button btnCreateMovie;
     public Button txtChooseFile;
     public Button btnCancel;
+    private Movie selectMovie;
     private File file;
     private String targetString = "MovieFiles";
     private Path target = Paths.get(targetString);
@@ -54,33 +56,13 @@ public class MovieDataInputs {
         Float IMDBRating = Float.valueOf(txtIMDBRating.getText());
         String FilePath = txtFilePath.getText();
         try {
-            Files.copy(file.toPath(), target.resolve(file.toPath().getFileName()));
-        } catch (IOException e) {
+           movieModel.createMovie(Title, PersonalRating, IMDBRating, FilePath);
+           Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        try{
-           // movieModel.createMovie(Title, PersonalRating, IMDBRating, Year,FilePath);
-            Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-            stage.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    public void handleAddInput(ActionEvent actionEvent) throws Exception {
-
-        String Title = txtTitle.getText();
-        Float PersonalRating = Float.valueOf(txtPersonalRating.getText());
-        Float IMDBRating = Float.valueOf(txtIMDBRating.getText());
-        String FilePath = txtFilePath.getText();
-        try {
-            movieModel.createMovie(Title, PersonalRating, IMDBRating, FilePath);
-            Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-            stage.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void handleCreationCancel(ActionEvent actionEvent) {
     }
