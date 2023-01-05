@@ -36,10 +36,10 @@ public class MovieDAO_DB implements IMovieDAO {
         }
         return allMovies;
     }
-    
+
 
     @Override
-    public Movie createMovie(String title, String year, float imdbRating, float personalRating, String filePath) throws Exception {
+    public Movie createMovie(String title, float imdbRating, float personalRating, String filePath) throws Exception {
 
         String sql = "INSERT INTO movie (Id,Title,IMDBRating,PersonalRating,FilePath) VALUES (?,?,?,?,?);";
 

@@ -20,4 +20,10 @@ public class MovieManager {
         return searchResult;
     }
 
+    public Movie createMovie(String title, float imdbRating, float personalRating, String filePath) throws Exception {
+        return movieDAO.createMovie(title, imdbRating, personalRating, filePath);
+    }
+
+
+
 }

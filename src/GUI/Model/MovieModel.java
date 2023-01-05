@@ -25,4 +25,16 @@ public class MovieModel {
     public ObservableList<Movie> getObservableSong() {
         return moviesToBeViewed;
     }
+
+    public void createMovie(String title, float imdbRating, float personalRating, String filePath) throws Exception {
+        movieManager.createMovie(title, imdbRating, personalRating, filePath);
+
+        showList();
+    }
+
+    public void showList() throws Exception {
+        moviesToBeViewed.clear();
+        moviesToBeViewed.addAll(movieManager.getAllMovies());
+    }
+
 }

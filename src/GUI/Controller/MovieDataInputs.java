@@ -52,7 +52,6 @@ public class MovieDataInputs {
         String Title = txtTitle.getText();
         Float PersonalRating = Float.valueOf(txtPersonalRating.getText());
         Float IMDBRating = Float.valueOf(txtIMDBRating.getText());
-        String Year = txtYear.getText();
         String FilePath = txtFilePath.getText();
         try {
             Files.copy(file.toPath(), target.resolve(file.toPath().getFileName()));
@@ -61,6 +60,21 @@ public class MovieDataInputs {
         }
         try{
            // movieModel.createMovie(Title, PersonalRating, IMDBRating, Year,FilePath);
+            Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handleAddInput(ActionEvent actionEvent) throws Exception {
+
+        String Title = txtTitle.getText();
+        Float PersonalRating = Float.valueOf(txtPersonalRating.getText());
+        Float IMDBRating = Float.valueOf(txtIMDBRating.getText());
+        String FilePath = txtFilePath.getText();
+        try {
+            movieModel.createMovie(Title, PersonalRating, IMDBRating, FilePath);
             Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             stage.close();
         } catch (Exception e) {
