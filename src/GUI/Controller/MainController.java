@@ -1,6 +1,6 @@
 package GUI.Controller;
 
-import BE.Categories;
+import BE.Category;
 import BE.Movie;
 import GUI.Model.CategoryModel;
 import GUI.Model.MRSModel;
@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 
 public class MainController extends BaseController implements Initializable {
     public TableView<Movie> lstMovies;
-    public TableView<Categories> lstCategories;
+    public TableView<Category> lstCategories;
     public TableView lstMovieByCategory;
     public Button btnAddMovieToCategory;
     public Button btnDeleteMovieFromCategory;
