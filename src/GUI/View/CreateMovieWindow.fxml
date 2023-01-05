@@ -8,18 +8,18 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MovieDataInputs">
    <children>
-      <TextField fx:id="txtTitle" layoutX="83.0" layoutY="84.0" text="Title" />
-      <TextField fx:id="txtIMDBRating" layoutX="83.0" layoutY="173.0" text="IMDB Rating" />
-      <TextField fx:id="txtPersonalRating" layoutX="83.0" layoutY="212.0" text="Personal Rating" />
-      <TextField fx:id="txtYear" layoutX="83.0" layoutY="130.0" text="Year" />
+      <TextField fx:id="txtTitle" layoutX="83.0" layoutY="84.0" promptText="Title" />
+      <TextField fx:id="txtIMDBRating" layoutX="83.0" layoutY="129.0" promptText="IMDB Rating" />
+      <TextField fx:id="txtPersonalRating" layoutX="83.0" layoutY="169.0" promptText="Personal Rating" />
       <Text layoutX="83.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please create a movie">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="txtChooseFile" layoutX="258.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleChooseFile" text="Choose a file" />
-      <TextField fx:id="txtFilePath" editable="false" layoutX="83.0" layoutY="260.0" text="FilePath" />
+      <Button fx:id="txtChooseFile" layoutX="258.0" layoutY="213.0" mnemonicParsing="false" onAction="#handleChooseFile" text="Choose a file" />
+      <TextField fx:id="txtFilePath" editable="false" layoutX="83.0" layoutY="213.0" promptText="FilePath" />
       <Button fx:id="btnCreateMovie" layoutX="83.0" layoutY="319.0" mnemonicParsing="false" onAction="#handleCreateMovie" text="Create Movie" />
       <Button fx:id="btnCancel" layoutX="206.0" layoutY="319.0" mnemonicParsing="false" onAction="#handleCreationCancel" text="Cancel" />
+      <TextField fx:id="txtIMDBLINK" layoutX="83.0" layoutY="256.0" promptText="IMDB Link page" />
    </children>
 </AnchorPane>

@@ -16,7 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class MovieDataInputs {
-
     private MovieModel movieModel = new MovieModel();
     public TextField txtTitle;
     public TextField txtIMDBRating;
