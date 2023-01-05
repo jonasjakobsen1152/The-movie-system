@@ -26,11 +26,11 @@ public class MovieDAO_DB implements IMovieDAO {
             while (rs.next()) {
                 int id = rs.getInt("MovieID");
                 String title = rs.getString("Title");
-                float IMDBRating = rs.getFloat("IMDBRating"); //todo Check if correct
-                float PersonalRating = rs.getFloat("PersonalRating"); //TODO check if correct
+                float IMDBRating = rs.getFloat("PersonalRating"); //todo Check if correct
+                float PersonalRating = rs.getFloat("IMDBRating"); //TODO check if correct
                 String filePath = rs.getString("FilePath"); // TODO CHECK IF CORRECT
 
-                Movie movie = new Movie(id,title,IMDBRating,PersonalRating,filePath);
+                Movie movie = new Movie(id,title,PersonalRating,IMDBRating,filePath);
                 allMovies.add(movie);
             }
         }

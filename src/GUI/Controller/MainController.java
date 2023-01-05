@@ -2,6 +2,8 @@ package GUI.Controller;
 
 import BE.Categories;
 import BE.Movie;
+import GUI.Model.CategoryModel;
+import GUI.Model.MRSModel;
 import GUI.Model.MovieModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +25,10 @@ public class MainController extends BaseController implements Initializable {
     public Button btnCreateCategory;
     public Button btnDeleteCategory;
     public TextField txtFilter;
+    MRSModel mrsModel = new MRSModel();
     public MovieModel movieModel;
+
+    public CategoryModel categoryModel;
 
     public Movie movie;
     public TableColumn clmTitle;
@@ -31,6 +36,9 @@ public class MainController extends BaseController implements Initializable {
     public TableColumn clmPersonal;
 
     public MainController() throws Exception {
+        movieModel = new MovieModel();
+        categoryModel = new CategoryModel();
+        mrsModel = new MRSModel();
     }
 
     @Override
@@ -69,7 +77,7 @@ public class MainController extends BaseController implements Initializable {
     public void showAllMoviesCategories(){
         //Sets the tableView, and then what it should show.
         lstMovies.setItems(movieModel.getObservableMovie());
-        System.out.println(movie.getTitle());
+        //System.out.println(movie.getTitle());
         //clmTitle.setCellFactory(new PropertyValueFactory<Movie,String>("title"));
        // clmIMDB.setCellFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
        // clmIMDB.setCellFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
