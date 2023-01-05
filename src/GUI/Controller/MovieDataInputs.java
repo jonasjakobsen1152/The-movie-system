@@ -64,6 +64,14 @@ public class MovieDataInputs {
         }
     }
 
+    public void setSelectMovie(Movie m) {
+        selectMovie = m;
+        txtTitle.setText(selectMovie.getTitle());
+        txtPersonalRating.setText(String.valueOf(selectMovie.getPersonalRating()));
+        txtIMDBRating.setText(String.valueOf(selectMovie.getImdbRating()));
+        txtFilePath.setText(selectMovie.getFilepath());
+    }
+
 
     public void handleCreationCancel(ActionEvent actionEvent) {
     }
