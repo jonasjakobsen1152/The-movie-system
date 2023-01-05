@@ -22,7 +22,7 @@ public class MovieModel {
         List<Movie> searchResults = movieManager.searchMovie(query);
     }
 
-    public ObservableList<Movie> getObservableSong() {
+    public ObservableList<Movie> getObservableMovie() {
         return moviesToBeViewed;
     }
 

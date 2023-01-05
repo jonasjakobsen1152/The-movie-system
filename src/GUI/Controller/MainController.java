@@ -30,7 +30,10 @@ public class MainController extends BaseController implements Initializable {
     public TableColumn clmIMDB;
     public TableColumn clmPersonal;
 
-@Override
+    public MainController() throws Exception {
+    }
+
+    @Override
     public void initialize (URL url, ResourceBundle resourceBundle){
     try {
         movieModel = new MovieModel();
@@ -49,11 +52,20 @@ public class MainController extends BaseController implements Initializable {
     }
     @Override
     public void setup() {
+    movieModel = getModel().getMovieModel();
 
+    txtFilter.textProperty().addListener(((observable, oldValue, newValue) -> {
+        try {
+            movieModel.searchMovie(newValue);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }));
+        showAllMoviesCategories();
     }
     public void showAllMoviesCategories(){
         //Sets the tableView, and then what it should show.
-        lstMovies.setItems(movieModel.getObservableSong());
+        lstMovies.setItems(movieModel.getObservableMovie());
         clmTitle.setCellFactory(new PropertyValueFactory<Movie,String>("Title"));
         clmIMDB.setCellFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
         clmIMDB.setCellFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
