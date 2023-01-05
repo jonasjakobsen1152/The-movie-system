@@ -40,11 +40,11 @@ public class MovieDataInputs {
         file = fc.showOpenDialog(stage);
         if (file != null) {
 
-            /*fileName = file.toURI().toString();
+            fileName = file.toURI().toString();
             fileName=fileName.substring(6);
             String newFile = fileName;
             fileName = newFile.replace("%20"," ");
-            txtFilePath.setText(fileName);*/
+            txtFilePath.setText(fileName);
             txtFilePath.setText(file.toURI().toString());
         }
     }
