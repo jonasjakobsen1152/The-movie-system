@@ -16,7 +16,7 @@ public class MyDatabaseConnector {
         dataSource.setServerName("10.176.111.31");
         dataSource.setDatabaseName("TheMovieSystem");
         dataSource.setUser("CSe22A_36");
-        dataSource.setPassword("gnf7xf7aEASV");
+        dataSource.setPassword("CSe22A_36");
         dataSource.setTrustServerCertificate(true);
 
     }
