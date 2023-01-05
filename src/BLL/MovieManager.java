@@ -4,12 +4,17 @@ import BE.Movie;
 import BLL.Util.MovieSearcher;
 import DAL.db.MovieDAO_DB;
 import DAL.IMovieDAO;
+import javafx.collections.FXCollections;
 
 import java.util.List;
 
 public class MovieManager {
     private IMovieDAO movieDAO;
     MovieSearcher movieSearcher;
+
+    public MovieManager() {
+        movieDAO = new MovieDAO_DB();
+    }
 
     public List<Movie> getAllMovies() throws Exception {
         return movieDAO.getAllMovies();
