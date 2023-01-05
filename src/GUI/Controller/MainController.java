@@ -38,11 +38,17 @@ public class MainController extends BaseController implements Initializable {
     public CategoryModel categoryModel;
 
     public Movie movie;
-    public TableColumn clmTitle;
-    public TableColumn clmIMDB;
-    public TableColumn clmPersonal;
+
+    public Movie selectedMovie;
+    @FXML
+    private TableColumn<Movie,String> clmTitle;
+    @FXML
+    private TableColumn<Movie,Float> clmIMDB;
+    @FXML
+    private TableColumn<Movie,Float> clmPersonal;
 
     public MainController() throws Exception {
+
         movieModel = new MovieModel();
         categoryModel = new CategoryModel();
         mrsModel = new MRSModel();
@@ -82,12 +88,15 @@ public class MainController extends BaseController implements Initializable {
         showAllMoviesCategories();
     }
     public void showAllMoviesCategories(){
+
         //Sets the tableView, and then what it should show.
+        clmTitle.setCellValueFactory(new PropertyValueFactory<Movie,String>("Title"));
+        clmIMDB.setCellValueFactory(new PropertyValueFactory<Movie, Float>("ImdbRating"));
+        clmPersonal.setCellValueFactory(new PropertyValueFactory<Movie, Float>("PersonalRating"));
+
         lstMovies.setItems(movieModel.getObservableMovie());
         //System.out.println(movie.getTitle());
-        //clmTitle.setCellFactory(new PropertyValueFactory<Movie,String>("title"));
-       // clmIMDB.setCellFactory(new PropertyValueFactory<Movie, Float>("imdbRating"));
-       // clmIMDB.setCellFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
+
     }
 
 
