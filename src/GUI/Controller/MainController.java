@@ -7,10 +7,17 @@ import GUI.Model.MRSModel;
 import GUI.Model.MovieModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,7 +32,7 @@ public class MainController extends BaseController implements Initializable {
     public Button btnCreateCategory;
     public Button btnDeleteCategory;
     public TextField txtFilter;
-    MRSModel mrsModel = new MRSModel();
+    public MRSModel mrsModel;
     public MovieModel movieModel;
 
     public CategoryModel categoryModel;
@@ -87,7 +94,29 @@ public class MainController extends BaseController implements Initializable {
     /*
     A method to Add new movies to the database
      */
-    public void handleCreateMovie(ActionEvent actionEvent) {
+    public void handleCreateMovie(ActionEvent actionEvent) throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/GUI/View/CreateMovieWindow.fxml"));
+        AnchorPane pane = (AnchorPane) loader.load();
+        MovieDataInputs movieDataInputs = loader.getController();
+        mrsModel.setMovieModel(super.getModel().getMovieModel());
+
+        Stage dialogWindow = new Stage();
+        dialogWindow.setTitle("Add Movie");
+        dialogWindow.initModality(Modality.WINDOW_MODAL);
+        dialogWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+        Scene scene = new Scene(pane);
+        dialogWindow.setScene(scene);
+
+        dialogWindow.showAndWait();
+        updateMovieModel();
+    }
+
+    private void updateMovieModel() throws Exception {
+        MovieModel updateMovieModel = new MovieModel();
+        movieModel = updateMovieModel;
+        lstMovies.setItems(movieModel.getObservableMovie());
+
     }
 
     /*

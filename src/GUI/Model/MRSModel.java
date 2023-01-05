@@ -4,6 +4,7 @@ public class MRSModel {
     private MovieModel movieModel;
     private CategoryModel categoryModel;
 
+
     public MRSModel() throws Exception {
         movieModel = new MovieModel();
         categoryModel = new CategoryModel();
@@ -13,5 +14,9 @@ public class MRSModel {
     public MovieModel getMovieModel(){return movieModel;}
 
     public CategoryModel getCategoryModel(){return categoryModel;}
+
+    public void setMovieModel(MovieModel movieModel) {
+        this.movieModel = movieModel;
+    }
 
 }
