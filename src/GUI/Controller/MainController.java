@@ -41,6 +41,7 @@ public class MainController extends BaseController implements Initializable {
     public Movie movie;
 
     public Movie selectedMovie;
+    public TableColumn<Category, String> clmCategories;
     @FXML
     private TableColumn<Movie,String> clmTitle;
     @FXML
@@ -96,6 +97,12 @@ public class MainController extends BaseController implements Initializable {
         clmPersonal.setCellValueFactory(new PropertyValueFactory<Movie, Float>("PersonalRating"));
 
         lstMovies.setItems(movieModel.getObservableMovie());
+
+        lstCategories.setItems(categoryModel.getAllCategories());
+        clmCategories.setCellValueFactory(new PropertyValueFactory<Category, String>("Category"));
+
+
+
         //System.out.println(movie.getTitle());
 
     }
@@ -130,6 +137,12 @@ public class MainController extends BaseController implements Initializable {
 
     }
 
+    private void updateCategoryModel() throws Exception {
+        CategoryModel updateCategoryModel = new CategoryModel();
+        categoryModel = updateCategoryModel;
+        lstCategories.setItems(categoryModel.getAllCategories());
+    }
+
     public Movie getSelectedMovie(){
         Movie movie;
         movie = lstMovies.getSelectionModel().getSelectedItem();
@@ -160,7 +173,23 @@ public class MainController extends BaseController implements Initializable {
     /*
     Creates a new category in the database
      */
-    public void handleCreateCategory(ActionEvent actionEvent) {
+    public void handleCreateCategory(ActionEvent actionEvent) throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/GUI/View/CreateCategoryWindow.fxml"));
+        AnchorPane pane = (AnchorPane) loader.load();
+        CategoryController categoryController = loader.getController();
+        mrsModel.setCategoryModel(super.getModel().getCategoryModel());
+
+        Stage dialogWindow = new Stage();
+        dialogWindow.setTitle("Add Category");
+        dialogWindow.initModality(Modality.WINDOW_MODAL);
+        dialogWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+        dialogWindow.setResizable(false);
+        Scene scene = new Scene(pane);
+        dialogWindow.setScene(scene);
+
+        dialogWindow.showAndWait();
+        updateCategoryModel();
     }
 
     /*

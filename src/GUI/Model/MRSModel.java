@@ -19,4 +19,5 @@ public class MRSModel {
         this.movieModel = movieModel;
     }
 
+    public void setCategoryModel(CategoryModel categoryModel) {this.categoryModel = categoryModel;}
 }
