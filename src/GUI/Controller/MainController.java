@@ -115,6 +115,7 @@ public class MainController extends BaseController implements Initializable {
         dialogWindow.setTitle("Add Movie");
         dialogWindow.initModality(Modality.WINDOW_MODAL);
         dialogWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+        dialogWindow.setResizable(false);
         Scene scene = new Scene(pane);
         dialogWindow.setScene(scene);
 
