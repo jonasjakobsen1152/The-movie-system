@@ -121,4 +121,9 @@ public class MovieDAO_DB implements IMovieDAO {
         }
 
     }
+
+    @Override
+    public void updateMovie(Movie updatedMovie) {
+
+    }
 }

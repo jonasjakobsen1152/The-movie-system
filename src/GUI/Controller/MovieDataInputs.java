@@ -62,8 +62,15 @@ public class MovieDataInputs {
         }
     }
 
-    public void handleEditIMDB(ActionEvent actionEvent) {
+    public void handleEditIMDB(ActionEvent actionEvent) throws Exception {
         int id = selectMovie.getId();
+        String updatedTitle = txtTitle.getText();
+        Float updatedIMDBRating = Float.valueOf(txtIMDBRating.getText());
+        Float updatedPersonalRating = Float.valueOf(txtPersonalRating.getText());
+        String updatedFilePath = txtFilePath.getText();
+        movieModel.updateMovie(new Movie(id, updatedTitle, updatedIMDBRating, updatedPersonalRating, updatedFilePath));
+        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.close();
 
     }
 

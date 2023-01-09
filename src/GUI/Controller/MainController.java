@@ -281,6 +281,31 @@ public class MainController extends BaseController implements Initializable {
     }
 
     public void handleEditIMDB(ActionEvent actionEvent) {
+        try {
+            Movie seletedMovie = lstMovies.getSelectionModel().getSelectedItem();
+
+            if(seletedMovie != null) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/GUI/View/MainWindow.fxml"));
+
+                Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+                Stage stage = new Stage();
+                stage.setTitle("Edit the movie");
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow()); // Does so the window has to be closed before the programm can be accessed again
+                stage.setScene(scene);
+                MovieDataInputs songDataInputs = fxmlLoader.getController();
+                songDataInputs.setSelectMovie(selectedMovie);
+                stage.showAndWait();
+                updateMovieModel(); // Updates the lstMovies
+
+            }
+            else {
+                alertUser("Please select a movie to edit");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void oldMovies() throws Exception {

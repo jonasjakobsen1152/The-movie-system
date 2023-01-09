@@ -37,6 +37,10 @@ public class MovieManager {
         movieDAO.deleteMovie(movie);
     }
 
+    public void updateMovie(Movie updatedMovie) {
+        movieDAO.updateMovie(updatedMovie);
+    }
+
 
     public void play(Movie selectedMovie) {
         moviePlayer.play(selectedMovie);

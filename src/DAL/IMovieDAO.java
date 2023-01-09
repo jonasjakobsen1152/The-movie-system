@@ -10,4 +10,6 @@ public interface IMovieDAO {
     public Movie createMovie(String title, float imdbRating, float personalRating, String filePath) throws Exception;
 
     public void deleteMovie(Movie movie) throws Exception;
+
+    void updateMovie(Movie updatedMovie);
 }
