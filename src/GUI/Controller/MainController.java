@@ -42,6 +42,7 @@ public class MainController extends BaseController implements Initializable {
 
     public Movie selectedMovie;
     public TableColumn<Category, String> clmCategories;
+    public Button btnPlayMovie;
     @FXML
     private TableColumn<Movie,String> clmTitle;
     @FXML
