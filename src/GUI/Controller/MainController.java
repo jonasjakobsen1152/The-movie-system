@@ -17,8 +17,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -55,7 +62,6 @@ public class MainController extends BaseController implements Initializable {
     private TableColumn<Movie,Float> clmPersonal;
 
     public MainController() throws Exception {
-
         movieModel = new MovieModel();
         categoryModel = new CategoryModel();
         mrsModel = new MRSModel();
@@ -63,6 +69,11 @@ public class MainController extends BaseController implements Initializable {
 
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle){
+        try {
+            oldMovies();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         lstMovies.setItems(movieModel.getObservableMovie());
         //lstCategories.setItems(); TODO Implement this when implementing category
         //TODO implement MODEL-songs on category
@@ -270,5 +281,23 @@ public class MainController extends BaseController implements Initializable {
     }
 
     public void handleEditIMDB(ActionEvent actionEvent) {
+    }
+
+    public void oldMovies() throws Exception {
+        ArrayList<Movie> allMovies;
+        allMovies = movieModel.getAllMovies();
+
+        for (Movie movieCheck : allMovies) {
+        String filePath = movieCheck.getFilepath();
+            File file = new File(filePath);
+            if(file.exists()) {
+                BasicFileAttributes bfr = Files.readAttributes(Path.of(filePath), BasicFileAttributes.class); //Gets the attributes of the file
+
+                FileTime lastModifiedTime = bfr.lastModifiedTime();
+
+                System.out.println(lastModifiedTime);
+            }
+
+        }
     }
 }

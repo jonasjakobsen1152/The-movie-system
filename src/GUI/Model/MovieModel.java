@@ -5,6 +5,7 @@ import BLL.MovieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieModel {
@@ -45,5 +46,9 @@ public class MovieModel {
 
     public void play(Movie selectedMovie) {
         movieManager.play(selectedMovie);
+    }
+
+    public ArrayList<Movie> getAllMovies() throws Exception {
+        return (ArrayList<Movie>) movieManager.getAllMovies();
     }
 }
