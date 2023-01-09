@@ -41,4 +41,7 @@ public class MovieModel {
         moviesToBeViewed.addAll(movieManager.getAllMovies());
     }
 
+    public void play(Movie selectedMovie) {
+        movieManager.play(selectedMovie);
+    }
 }

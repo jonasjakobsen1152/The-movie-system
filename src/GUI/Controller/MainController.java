@@ -232,4 +232,8 @@ public class MainController extends BaseController implements Initializable {
      */
     public void handleDeleteMovieFromCategory(ActionEvent actionEvent) {
     }
+
+    public void handlePlayMovie(ActionEvent actionEvent) {
+        movieModel.play(selectedMovie);
+    }
 }

@@ -1,5 +1,6 @@
 package BLL.Util;
 
+import BE.Movie;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -7,9 +8,8 @@ import java.io.File;
 
 public class MoviePlayer {
 
-    File file = new File("");
-
-
-
-
+    public void play(Movie selectedMovie) {
+        File file = new File("");
+    
+    }
 }
