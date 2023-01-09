@@ -73,5 +73,7 @@ public class MovieDataInputs {
 
 
     public void handleCreationCancel(ActionEvent actionEvent) {
+        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.close();
     }
 }
