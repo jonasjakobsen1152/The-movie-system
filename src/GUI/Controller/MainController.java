@@ -318,7 +318,7 @@ public class MainController extends BaseController implements Initializable {
             if(file.exists()) {
                 BasicFileAttributes bfr = Files.readAttributes(Path.of(filePath), BasicFileAttributes.class); //Gets the attributes of the file
 
-                FileTime lastModifiedTime = bfr.lastModifiedTime();
+                FileTime lastModifiedTime = bfr.lastAccessTime();
 
                 System.out.println(lastModifiedTime);
             }
