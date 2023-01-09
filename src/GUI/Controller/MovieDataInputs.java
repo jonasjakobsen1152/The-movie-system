@@ -62,6 +62,12 @@ public class MovieDataInputs {
         }
     }
 
+    public void handleEditIMDB(ActionEvent actionEvent) {
+        int id = selectMovie.getId();
+
+    }
+
+
     public void setSelectMovie(Movie m) {
         selectMovie = m;
         txtTitle.setText(selectMovie.getTitle());

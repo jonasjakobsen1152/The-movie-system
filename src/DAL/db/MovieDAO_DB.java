@@ -1,6 +1,7 @@
 package DAL.db;
 import BE.Movie;
 import DAL.IMovieDAO;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -78,6 +79,29 @@ public class MovieDAO_DB implements IMovieDAO {
             throw new Exception("Could not create movie", ex);
         }
     }
+
+    public void editIMDB(Movie movie) throws Exception {
+        try (Connection conn = databaseConnector.getConnection()) {
+            String sql = "Update movie set Title = ?, IMDBRating = ?, PersonalRating = ?, FilePath = ? WHERE MovieID = ?;";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, movie.getTitle());
+            stmt.setFloat(2, movie.getImdbRating());
+            stmt.setFloat(3, movie.getPersonalRating());
+            stmt.setString(4, movie.getFilepath());
+            stmt.setInt(5, movie.getId());
+
+            String filePath = movie.getFilepath();
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new Exception("Could not update IMDB Rating", e);
+        }
+    }
+
+
 
     @Override
     public void deleteMovie(Movie movie) throws Exception {
