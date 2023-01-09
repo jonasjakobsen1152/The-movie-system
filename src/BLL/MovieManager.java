@@ -16,6 +16,7 @@ public class MovieManager {
 
     public MovieManager() {
         movieDAO = new MovieDAO_DB();
+        moviePlayer = new MoviePlayer();
     }
 
     public List<Movie> getAllMovies() throws Exception {

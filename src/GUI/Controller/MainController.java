@@ -62,6 +62,8 @@ public class MainController extends BaseController implements Initializable {
         lstMovies.setItems(movieModel.getObservableMovie());
         //lstCategories.setItems(); TODO Implement this when implementing category
         //TODO implement MODEL-songs on category
+        lstMovies.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+                selectedMovie = newValue);
     try {
         movieModel = new MovieModel();
     } catch (Exception e) {

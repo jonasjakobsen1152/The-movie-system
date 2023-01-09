@@ -45,7 +45,6 @@ public class MovieDataInputs {
             String newFile = fileName;
             fileName = newFile.replace("%20"," ");
             txtFilePath.setText(fileName);
-            txtFilePath.setText(file.toURI().toString());
         }
     }
 
