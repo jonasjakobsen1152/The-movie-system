@@ -7,7 +7,7 @@ import java.io.File;
 
 public class MoviePlayer {
 
-    File file = new File("")
+    File file = new File("");
 
 
 
