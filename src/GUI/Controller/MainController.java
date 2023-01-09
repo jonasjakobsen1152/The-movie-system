@@ -43,8 +43,6 @@ public class MainController extends BaseController implements Initializable {
     public Movie selectedMovie;
     public TableColumn<Category, String> clmCategories;
     public Button btnPlayMovie;
-    public boolean clickMovieToPlay;
-    private boolean inPlaylister;
     @FXML
     private TableColumn<Movie,String> clmTitle;
     @FXML
@@ -80,16 +78,17 @@ public class MainController extends BaseController implements Initializable {
                 throw new RuntimeException(e);
             }
         })));
-        lstMovies.setOnMouseClicked(event -> { //Vi har en "lytter" på museklik på de tre listview tabeller.
-            clickMovieToPlay=true;     //Vi har boolean til at undersøge, om vi er I musiklisten eller musikplaylisten. Her musikplaylisten.
-            inPlaylister=false;                 //Vi er ikke i playlisten.
-
+        lstMovies.setOnMouseClicked(event -> { // Checks for click.
             if (event.getClickCount() == 2 ) //Ved dobbeltklik kan man starte musikken
             {
+                if(selectedMovie != null)
                 try {
                     movieModel.play(selectedMovie);       //Håndtere afspilning af sange.
                 } catch (Exception e) {
                     throw new RuntimeException(e);
+                }
+                else{
+                    alertUser("Please select a movie");
                 }
             }  });
     }
@@ -251,5 +250,12 @@ public class MainController extends BaseController implements Initializable {
 
     public void handlePlayMovie(ActionEvent actionEvent) {
         movieModel.play(selectedMovie);
+    }
+
+    private void alertUser(String error){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(error);
+        alert.setHeaderText(error + "");
+        alert.showAndWait();
     }
 }
