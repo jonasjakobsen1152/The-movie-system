@@ -36,4 +36,8 @@ public class CategoryController extends BaseController {
         categoryModel = getModel().getCategoryModel();
     }
 
+    public void cancelCreateCategory(ActionEvent actionEvent) {
+        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.close();
+    }
 }

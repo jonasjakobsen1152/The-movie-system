@@ -7,7 +7,7 @@
    <children>
       <Label layoutX="32.0" layoutY="27.0" text="Category:" />
       <TextField fx:id="txtCategory" layoutX="107.0" layoutY="23.0" prefHeight="25.0" prefWidth="277.0" promptText="Enter the name of the category" />
-      <Button layoutX="207.0" layoutY="71.0" mnemonicParsing="false" text="Cancel" />
+      <Button layoutX="207.0" layoutY="71.0" mnemonicParsing="false" onAction="#cancelCreateCategory" text="Cancel" />
       <Button layoutX="347.0" layoutY="71.0" mnemonicParsing="false" onAction="#handleCreateCategory" text="Create" />
    </children>
 </AnchorPane>
