@@ -20,6 +20,8 @@ public class MovieModel {
 
     public void searchMovie(String query) throws Exception {
         List<Movie> searchResults = movieManager.searchMovie(query);
+        moviesToBeViewed.clear();
+        moviesToBeViewed.addAll(searchResults);
     }
 
     public ObservableList<Movie> getObservableMovie() {

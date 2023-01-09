@@ -11,7 +11,7 @@ public class MovieSearcher {
        List<Movie> searchResult = new ArrayList<>();
 
        for(Movie movie : searchBase){
-           if(compareToMovieTitle(query, movie) || compareToMovieIMDB(Float.parseFloat(query),movie) || compareToMoviePersonalRating(Float.parseFloat(query),movie) )
+           if(compareToMovieTitle(query, movie) || compareToMovieIMDB((query),movie) || compareToMoviePersonalRating((query),movie) )
            {
                searchResult.add(movie);
            }
@@ -23,11 +23,13 @@ public class MovieSearcher {
         return movie.getTitle().toLowerCase().contains(query.toLowerCase());
     }
 
-    private boolean compareToMovieIMDB(float query, Movie movie){
-        return movie.getImdbRating() == query;
+    private boolean compareToMovieIMDB(String query, Movie movie){
+        String iMDBQuery = String.valueOf(movie.getImdbRating());
+        return iMDBQuery.toLowerCase().contains(query.toLowerCase());
     }
 
-    private boolean compareToMoviePersonalRating(float query, Movie movie){
-        return movie.getPersonalRating() == query;
+    private boolean compareToMoviePersonalRating(String query, Movie movie){
+        String personalQuery = String.valueOf(movie.getPersonalRating());
+        return personalQuery.toLowerCase().contains(query.toLowerCase());
     }
 }
