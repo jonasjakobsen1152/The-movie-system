@@ -253,6 +253,8 @@ public class MainController extends BaseController implements Initializable {
 
     public void handlePlayMovie(ActionEvent actionEvent) {
         movieModel.play(selectedMovie);
+        String filePath = selectedMovie.getFilepath();
+        
     }
 
     private void alertUser(String error){
