@@ -157,7 +157,7 @@ public class MainController extends BaseController implements Initializable {
         if(selectedMovie == null){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Select a movie");
-            alert.setHeaderText("Chose a movie to delete");
+            alert.setHeaderText("Choose a movie to delete");
             alert.show();
         }else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -195,7 +195,29 @@ public class MainController extends BaseController implements Initializable {
     /*
     Deletes a category from the database
      */
-    public void handleDeleteCategory(ActionEvent actionEvent) {
+    public void handleDeleteCategory(ActionEvent actionEvent) throws Exception {
+        Category selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
+        if(selectedCategory == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Select a category");
+            alert.setHeaderText("Choose a category to delete");
+            alert.show();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Are you sure you want to delete: " + selectedCategory.getCategory().concat("?"));
+            Optional<ButtonType> action = alert.showAndWait();
+            if(action.get()==ButtonType.OK){
+                categoryModel.deleteCategory(getSelectedCategory());
+                updateCategoryModel();
+            }
+        }
+    }
+
+    private Category getSelectedCategory() {
+        Category category;
+        category = lstCategories.getSelectionModel().getSelectedItem();
+        return category;
     }
 
     /*

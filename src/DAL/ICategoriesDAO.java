@@ -10,5 +10,7 @@ public interface ICategoriesDAO {
 
     public Category createCategory(String categoryName) throws Exception;
 
+    public void deleteCategory(Category deletedCategory);
+
 
 }

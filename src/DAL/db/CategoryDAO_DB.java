@@ -12,10 +12,13 @@ public class CategoryDAO_DB implements ICategoriesDAO {
 
     private MyDatabaseConnector dbConnector;
 
-    public CategoryDAO_DB(){dbConnector = new MyDatabaseConnector();}
+    public CategoryDAO_DB() {
+        dbConnector = new MyDatabaseConnector();
+    }
 
     /**
      * Gets the categories from the Categories table in the database
+     *
      * @return List<Category>
      * @throws Exception
      */
@@ -25,13 +28,13 @@ public class CategoryDAO_DB implements ICategoriesDAO {
         List<Category> categoryList = new ArrayList<>();
 
         String sql = "SELECT * FROM Categories;";
-        try (Connection connection = dbConnector.getConnection()){
+        try (Connection connection = dbConnector.getConnection()) {
 
             Statement statement = connection.createStatement();
 
-            if(statement.execute(sql)){
+            if (statement.execute(sql)) {
                 ResultSet resultSet = statement.getResultSet();
-                while (resultSet.next()){
+                while (resultSet.next()) {
                     int categoryID = resultSet.getInt("CategoryID");
                     String categoryName = resultSet.getString("Category");
 
@@ -45,6 +48,7 @@ public class CategoryDAO_DB implements ICategoriesDAO {
 
     /**
      * Create a new category in the table Categories
+     *
      * @param categoryName
      * @return Category
      * @throws Exception
@@ -53,26 +57,46 @@ public class CategoryDAO_DB implements ICategoriesDAO {
 
         String sql = "INSERT INTO Categories (Category) VALUES (?);";
 
-        try(Connection connection = dbConnector.getConnection()){
+        try (Connection connection = dbConnector.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            stmt.setString(1,categoryName);
+            stmt.setString(1, categoryName);
 
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
             int id = 0;
 
-            if(rs.next()){
+            if (rs.next()) {
                 id = rs.getInt(1);
             }
 
             Category category = new Category(id, categoryName);
             return category;
-        }
-        catch (SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
             throw new Exception("Could not create a category", ex);
+        }
+    }
+
+
+    @Override
+    public void deleteCategory(Category deletedCategory) {
+        try(Connection conn = dbConnector.getConnection()) {
+
+
+            String sql = "" + "DELETE FROM Categories WHERE Category = (?) AND CategoryID = (?);";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            //Binding parameters
+            stmt.setString(1, deletedCategory.getCategory());
+            stmt.setInt(2, deletedCategory.getId());
+
+            stmt.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Could noget delte category", e);
         }
     }
 }

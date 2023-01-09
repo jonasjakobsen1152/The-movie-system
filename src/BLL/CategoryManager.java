@@ -19,4 +19,9 @@ public class CategoryManager {
     public List<Category> getAllCategories() throws Exception {
         return categoriesDAO_DB.getAllCategories();
     }
+
+    public void deleteCategory(Category deletedCategory) throws Exception{
+        categoriesDAO_DB.deleteCategory(deletedCategory);
+    }
+
 }

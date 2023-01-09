@@ -24,4 +24,16 @@ public class CategoryModel {
     }
 
     public ObservableList<Category> getAllCategories(){return categoriesToBeViewed;}
+
+    public void deleteCategory(Category deletedCategory) throws Exception {
+        categoryManager.deleteCategory(deletedCategory);
+
+    }
+
+    public void showList() throws Exception {
+        categoriesToBeViewed.clear();
+        categoriesToBeViewed.addAll(categoryManager.getAllCategories());
+    }
+
+
 }
