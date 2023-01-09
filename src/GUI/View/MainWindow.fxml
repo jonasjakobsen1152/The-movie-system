@@ -29,11 +29,12 @@
       </TableView>
       <Button fx:id="btnAddMovieToCategory" layoutX="544.0" layoutY="107.0" mnemonicParsing="false" onAction="#handleAddMovieToCategory" text="&lt;--" AnchorPane.rightAnchor="306.0" />
       <Button fx:id="btnDeleteMovieFromCategory" layoutX="544.0" layoutY="403.0" mnemonicParsing="false" onAction="#handleDeleteMovieFromCategory" text="--&gt;" AnchorPane.rightAnchor="306.0" />
-      <Button fx:id="btnCreateMovie" layoutX="623.0" layoutY="524.0" mnemonicParsing="false" onAction="#handleCreateMovie" text="Create Movie" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="174.0" />
-      <Button fx:id="btnDeleteMovie" layoutX="777.0" layoutY="524.0" mnemonicParsing="false" onAction="#handleDeleteMovie" text="Delete Movie" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="20.0" />
+      <Button fx:id="btnCreateMovie" layoutX="610.0" layoutY="524.0" mnemonicParsing="false" onAction="#handleCreateMovie" text="Create Movie" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="187.0" />
+      <Button fx:id="btnDeleteMovie" layoutX="783.0" layoutY="524.0" mnemonicParsing="false" onAction="#handleDeleteMovie" text="Delete Movie" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="14.0" />
       <Button fx:id="btnCreateCategory" layoutX="28.0" layoutY="524.0" mnemonicParsing="false" onAction="#handleCreateCategory" text="Create Category" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="28.0" />
       <Button fx:id="btnDeleteCategory" layoutX="141.0" layoutY="524.0" mnemonicParsing="false" onAction="#handleDeleteCategory" text="Delete Category" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="141.0" />
       <TextField fx:id="txtFilter" layoutX="617.0" layoutY="14.0" prefHeight="25.0" prefWidth="247.0" promptText="Search" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="14.0" />
       <Button fx:id="btnPlayMovie" layoutX="274.0" layoutY="524.0" mnemonicParsing="false" onAction="#handlePlayMovie" prefHeight="25.0" prefWidth="247.0" text="Play Movie" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="274.0" />
+      <Button fx:id="btnEditIMDB" layoutX="703.0" layoutY="524.0" mnemonicParsing="false" onAction="#handleEditIMDB" prefHeight="25.0" prefWidth="75.0" text="Edit IMDB" />
    </children>
 </AnchorPane>

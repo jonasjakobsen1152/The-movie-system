@@ -43,6 +43,10 @@ public class MainController extends BaseController implements Initializable {
     public Movie selectedMovie;
     public TableColumn<Category, String> clmCategories;
     public Button btnPlayMovie;
+    public TableColumn clmTitleInCategory;
+    public TableColumn clmIMDBInCategory;
+    public TableColumn clmPersonalInCategory;
+    public Button btnEditIMDB;
     @FXML
     private TableColumn<Movie,String> clmTitle;
     @FXML
@@ -263,5 +267,8 @@ public class MainController extends BaseController implements Initializable {
         alert.setTitle(error);
         alert.setHeaderText(error + "");
         alert.showAndWait();
+    }
+
+    public void handleEditIMDB(ActionEvent actionEvent) {
     }
 }
