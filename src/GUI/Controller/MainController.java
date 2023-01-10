@@ -59,11 +59,11 @@ public class MainController extends BaseController implements Initializable {
     public TableColumn clmPersonalInCategory;
     public Button btnEditIMDB;
     @FXML
-    private TableColumn<Movie,String> clmTitle;
+    private TableColumn<Movie, String> clmTitle;
     @FXML
-    private TableColumn<Movie,Float> clmIMDB;
+    private TableColumn<Movie, Float> clmIMDB;
     @FXML
-    private TableColumn<Movie,Float> clmPersonal;
+    private TableColumn<Movie, Float> clmPersonal;
 
     public MainController() throws Exception {
         movieModel = new MovieModel();
@@ -72,9 +72,9 @@ public class MainController extends BaseController implements Initializable {
     }
 
     @Override
-    public void initialize (URL url, ResourceBundle resourceBundle){
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            oldMovies();
+            checkOldMovies();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -83,12 +83,12 @@ public class MainController extends BaseController implements Initializable {
         //TODO implement MODEL-songs on category
         lstMovies.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 selectedMovie = newValue);
-    try {
-        movieModel = new MovieModel();
-    } catch (Exception e) {
-        throw new RuntimeException(e);
-    }
-    showAllMoviesCategories();
+        try {
+            movieModel = new MovieModel();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        showAllMoviesCategories();
 
         txtFilter.textProperty().addListener((((observable, oldValue, newValue) -> { //If value changes it runs the following code
             try {
@@ -98,36 +98,39 @@ public class MainController extends BaseController implements Initializable {
             }
         })));
         lstMovies.setOnMouseClicked(event -> { // Checks for click.
-            if (event.getClickCount() == 2 ) //Ved dobbeltklik kan man starte musikken
+            if (event.getClickCount() == 2) //Ved dobbeltklik kan man starte musikken
             {
-                if(selectedMovie != null)
-                try {
-                    movieModel.play(selectedMovie);       //Håndtere afspilning af sange.
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-                else{
+                if (selectedMovie != null)
+                    try {
+                        movieModel.play(selectedMovie);       //Håndtere afspilning af sange.
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                else {
                     alertUser("Please select a movie");
                 }
-            }  });
+            }
+        });
     }
+
     @Override
     public void setup() {
-    movieModel = getModel().getMovieModel();
+        movieModel = getModel().getMovieModel();
 
-    txtFilter.textProperty().addListener(((observable, oldValue, newValue) -> {
-        try {
-            movieModel.searchMovie(newValue);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }));
+        txtFilter.textProperty().addListener(((observable, oldValue, newValue) -> {
+            try {
+                movieModel.searchMovie(newValue);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }));
         showAllMoviesCategories();
     }
-    public void showAllMoviesCategories(){
+
+    public void showAllMoviesCategories() {
 
         //Sets the tableView, and then what it should show.
-        clmTitle.setCellValueFactory(new PropertyValueFactory<Movie,String>("Title"));
+        clmTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
         clmIMDB.setCellValueFactory(new PropertyValueFactory<Movie, Float>("ImdbRating"));
         clmPersonal.setCellValueFactory(new PropertyValueFactory<Movie, Float>("PersonalRating"));
 
@@ -135,7 +138,6 @@ public class MainController extends BaseController implements Initializable {
 
         lstCategories.setItems(categoryModel.getAllCategories());
         clmCategories.setCellValueFactory(new PropertyValueFactory<Category, String>("Category"));
-
 
 
         //System.out.println(movie.getTitle());
@@ -156,7 +158,7 @@ public class MainController extends BaseController implements Initializable {
         Stage dialogWindow = new Stage();
         dialogWindow.setTitle("Add Movie");
         dialogWindow.initModality(Modality.WINDOW_MODAL);
-        dialogWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+        dialogWindow.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
         dialogWindow.setResizable(false);
         Scene scene = new Scene(pane);
         dialogWindow.setScene(scene);
@@ -178,7 +180,7 @@ public class MainController extends BaseController implements Initializable {
         lstCategories.setItems(categoryModel.getAllCategories());
     }
 
-    public Movie getSelectedMovie(){
+    public Movie getSelectedMovie() {
         Movie movie;
         movie = lstMovies.getSelectionModel().getSelectedItem();
         return movie;
@@ -189,17 +191,17 @@ public class MainController extends BaseController implements Initializable {
      */
     public void handleDeleteMovie(ActionEvent actionEvent) throws Exception {
         Movie selectedMovie = lstMovies.getSelectionModel().getSelectedItem();
-        if(selectedMovie == null){
+        if (selectedMovie == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Select a movie");
             alert.setHeaderText("Choose a movie to delete");
             alert.show();
-        }else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Warning");
             alert.setHeaderText("Are you sure you want to delete: " + selectedMovie.getTitle().concat("?"));
             Optional<ButtonType> action = alert.showAndWait();
-            if(action.get()==ButtonType.OK){
+            if (action.get() == ButtonType.OK) {
                 movieModel.deleteMovie(getSelectedMovie());
             }
         }
@@ -218,7 +220,7 @@ public class MainController extends BaseController implements Initializable {
         Stage dialogWindow = new Stage();
         dialogWindow.setTitle("Add Category");
         dialogWindow.initModality(Modality.WINDOW_MODAL);
-        dialogWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+        dialogWindow.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
         dialogWindow.setResizable(false);
         Scene scene = new Scene(pane);
         dialogWindow.setScene(scene);
@@ -232,17 +234,17 @@ public class MainController extends BaseController implements Initializable {
      */
     public void handleDeleteCategory(ActionEvent actionEvent) throws Exception {
         Category selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
-        if(selectedCategory == null){
+        if (selectedCategory == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Select a category");
             alert.setHeaderText("Choose a category to delete");
             alert.show();
-        }else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Warning");
             alert.setHeaderText("Are you sure you want to delete: " + selectedCategory.getCategory().concat("?"));
             Optional<ButtonType> action = alert.showAndWait();
-            if(action.get()==ButtonType.OK){
+            if (action.get() == ButtonType.OK) {
                 categoryModel.deleteCategory(getSelectedCategory());
                 updateCategoryModel();
             }
@@ -269,26 +271,30 @@ public class MainController extends BaseController implements Initializable {
 
     public void handlePlayMovie(ActionEvent actionEvent) {
 
-        if(selectedMovie == null){
+        if (selectedMovie == null) {
             alertUser("Incorrect filepath, try choosing a movie");
-        }
-        else {
+        } else {
             movieModel.play(selectedMovie);
         }
     }
 
-    private void alertUser(String error){
+    private void alertUser(String error) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(error);
         alert.setHeaderText(error + "");
         alert.showAndWait();
     }
-
+    private void informationUser(String information){
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle("Regarding oldMovies");
+        info.setHeaderText(information + "");
+        info.showAndWait();
+    }
     public void handleEditIMDB(ActionEvent actionEvent) {
         try {
             Movie seletedMovie = lstMovies.getSelectionModel().getSelectedItem();
 
-            if(seletedMovie != null) {
+            if (seletedMovie != null) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/GUI/View/editIMDB.fxml"));
 
@@ -303,8 +309,7 @@ public class MainController extends BaseController implements Initializable {
                 stage.showAndWait();
                 updateMovieModel(); // Updates the lstMovies
 
-            }
-            else {
+            } else {
                 alertUser("Please select a movie to edit");
             }
         } catch (Exception e) {
@@ -312,43 +317,41 @@ public class MainController extends BaseController implements Initializable {
         }
     }
 
-    public Movie oldMovies() throws Exception {
-        ArrayList<Movie> allMovies;
-        allMovies = movieModel.getAllMovies();
-
-        for (Movie movieCheck : allMovies) {
-        String filePath = movieCheck.getFilepath();
-            File file = new File(filePath);
-            if(file.exists()) {
-                BasicFileAttributes bfr = Files.readAttributes(Path.of(filePath), BasicFileAttributes.class);
-
-                FileTime lastAccessed = (bfr.lastAccessTime());
-
-                LocalDate dateToCheck = lastAccessed.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-                LocalDate localdate = Instant.now().atZone(ZoneId.systemDefault()).toLocalDate();
-
-                Period yearsBetween = Period.ofYears(Period.between(dateToCheck,localdate).getYears());
-
-                System.out.println(yearsBetween);
-                /*
-                BasicFileAttributes bfr = Files.readAttributes(Path.of(filePath), BasicFileAttributes.class); //Gets the attributes of the file
-
-                Period between = Period.between(Instant.ofEpochMilli(bfr.lastAccessTime().toMillis()).atZone(ZoneId.systemDefault()).toLocalDate(),
-                        Instant.now().atZone(ZoneId.systemDefault()).toLocalDate());
-                int yearsBetween = between.getYears();
-                System.out.println(yearsBetween);
-
-                 */
-                return movieCheck;
-
-            }
-
+    public void checkOldMovies() throws Exception {
+        ArrayList<Movie> outDatedMovies = oldMovies();
+        if (outDatedMovies.size() != 0) {
+            int size = oldMovies().size();
+        informationUser("Following movies has not been seen for two years" + "\n" + oldMovies());
+            };
         }
-        return null;
-    }
-public Movie checkOldMovies(){
-        return null;
-}
 
-}
+
+        public ArrayList<Movie> oldMovies () throws Exception {
+            ArrayList<Movie> allMovies;
+            allMovies = movieModel.getAllMovies(); // Creates an Arraylist of all movies.
+
+            ArrayList<Movie> outDatedMovies = new ArrayList<>(); // Creates a new list for outDatedMovies
+            for (Movie movieCheck : allMovies) {
+                String filePath = movieCheck.getFilepath();
+                File file = new File(filePath); // So we can call the methods from the class File.
+                if (file.exists() && movieCheck.getPersonalRating() >= 6) { // Check if the file Exist, and if it has a personal rating at 6 or higher.
+                    BasicFileAttributes bfr = Files.readAttributes(Path.of(filePath), BasicFileAttributes.class);
+
+                    FileTime lastAccessed = bfr.lastAccessTime(); // Checks when the Movie was last accessed(Seen/opened).
+
+                    LocalDate dateToCheck = lastAccessed.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(); // Gets the day the file was last accessed
+                    LocalDate localdate = Instant.now().atZone(ZoneId.systemDefault()).toLocalDate(); // Gets the current day from the system that runs the program
+
+                    Period yearsBetween = Period.between(dateToCheck, localdate); // Calculates the years between the two diffrent days.
+
+                    if (yearsBetween.getYears() >= 2) {
+                        outDatedMovies.add(movieCheck);
+                    }
+
+                }
+            }
+            return outDatedMovies;
+        }
+    }
+
+
