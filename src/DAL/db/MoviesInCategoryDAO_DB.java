@@ -47,21 +47,24 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
     @Override
     public void addMovieToCategory(Category selectedCategory, Movie selectedMovie, int catMovieId) {
 
-        String sql = "INSERT INTO CatMovieID VALUES (?,?,?);";
+        String sql = "INSERT INTO CatMovie (CatMovieID, MovieId, CategoryID) VALUES (?,?,?);";
 
         try(Connection connection = dbConnector.getConnection()){
 
-            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             int selectedCategoryID = selectedCategory.getId();
             int selectedMovieID = selectedMovie.getId();
-            int catMovieID = catMovieId + 1;
+            int catMovieID = catMovieId;
 
-            stmt.setInt(1, selectedCategoryID);
+            stmt.setInt(1, catMovieID);
             stmt.setInt(2, selectedMovieID);
-            stmt.setInt(3, catMovieID);
+            stmt.setInt(3, selectedCategoryID);
 
             stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            
         } catch (SQLServerException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -73,9 +76,28 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
     @Override
     public void deleteMovieFromCategory(Category category, Movie selectedMovie, int selectedCMId) {
 
+        String sql = "DELETE FROM CatMovie WHERE movie_id = ? AND category_id = ?";
+
+        try (Connection conn = dbConnector.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1,selectedMovie.getId());
+            stmt.setInt(2,category.getId());
+
+            stmt.executeUpdate(); //executeUpdate method is used to execute the SQL statement and returns the number of rows affected.
+
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
     }
 
-    public int getCatMovieID(int movieID, int categoryID){
+
+
+
+        public int getCatMovieID(int movieID, int categoryID){
         int catmID = 0;
 
         String sql = "SELECT * FROM CatMovie CATM WHERE CATM.MovieID =" + movieID + "AND" + "CATM.CategoryID=" + categoryID + ";";

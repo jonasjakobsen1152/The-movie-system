@@ -5,6 +5,7 @@ import BE.Movie;
 import GUI.Model.CategoryModel;
 import GUI.Model.MRSModel;
 import GUI.Model.MovieModel;
+import GUI.Model.MoviesInCategoryModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
@@ -36,7 +38,7 @@ import static java.time.Instant.now;
 public class MainController extends BaseController implements Initializable {
     public TableView<Movie> lstMovies;
     public TableView<Category> lstCategories;
-    public TableView lstMovieByCategory;
+    public TableView <Movie> lstMovieByCategory;
     public Button btnAddMovieToCategory;
     public Button btnDeleteMovieFromCategory;
     public Button btnCreateMovie;
@@ -48,10 +50,13 @@ public class MainController extends BaseController implements Initializable {
     public MovieModel movieModel;
 
     public CategoryModel categoryModel;
+    public MoviesInCategoryModel moviesInCategoryModel;
 
     public Movie movie;
 
     public Movie selectedMovie;
+    private int categoryNumber;
+    public Category selectedCategory;
     public TableColumn<Category, String> clmCategories;
     public Button btnPlayMovie;
     public TableColumn clmTitleInCategory;
@@ -69,6 +74,7 @@ public class MainController extends BaseController implements Initializable {
         movieModel = new MovieModel();
         categoryModel = new CategoryModel();
         mrsModel = new MRSModel();
+        moviesInCategoryModel = new MoviesInCategoryModel();
     }
 
     @Override
@@ -109,6 +115,15 @@ public class MainController extends BaseController implements Initializable {
                 else {
                     alertUser("Please select a movie");
                 }
+            }  });
+        lstCategories.setOnMouseClicked(event -> {
+            Category selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
+            categoryNumber = selectedCategory.getId();
+
+            try{
+                moviesInCategoryModel.showList(categoryNumber);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         });
     }
@@ -139,7 +154,10 @@ public class MainController extends BaseController implements Initializable {
         lstCategories.setItems(categoryModel.getAllCategories());
         clmCategories.setCellValueFactory(new PropertyValueFactory<Category, String>("Category"));
 
-
+        lstMovieByCategory.setItems(moviesInCategoryModel.getMoviesToBeViewed());
+        clmTitleInCategory.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
+        clmTitleInCategory.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("IMDB"));
+        clmTitleInCategory.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("Personal"));
         //System.out.println(movie.getTitle());
 
     }
@@ -261,6 +279,21 @@ public class MainController extends BaseController implements Initializable {
     Adds a movie from the database to the chosen category
      */
     public void handleAddMovieToCategory(ActionEvent actionEvent) {
+        selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
+        int sizeOfCategory = moviesInCategoryModel.getMoviesToBeViewed().size();
+        Movie selectedMovie = lstMovies.getSelectionModel().getSelectedItem();
+        Category selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
+        if(sizeOfCategory != 0){
+            Movie newMovie = lstMovieByCategory.getItems().get(sizeOfCategory-1);
+            int lastMovieID = newMovie.getId();
+            int selectedCategoryID = selectedCategory.getId();
+
+            int highestCatMovieID = moviesInCategoryModel.getCatMovieID(lastMovieID, selectedCategoryID);
+            moviesInCategoryModel.addMovieToCategory(selectedCategory,selectedMovie, highestCatMovieID + 1);
+        }
+        else {
+            moviesInCategoryModel.addMovieToCategory(selectedCategory, selectedMovie, 1);
+        }
     }
 
     /*
