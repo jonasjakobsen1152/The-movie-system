@@ -47,21 +47,24 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
     @Override
     public void addMovieToCategory(Category selectedCategory, Movie selectedMovie, int catMovieId) {
 
-        String sql = "INSERT INTO CatMovieID VALUES (?,?,?);";
+        String sql = "INSERT INTO CatMovie (CatMovieID, MovieId, CategoryID) VALUES (?,?,?);";
 
         try(Connection connection = dbConnector.getConnection()){
 
-            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             int selectedCategoryID = selectedCategory.getId();
             int selectedMovieID = selectedMovie.getId();
-            int catMovieID = catMovieId + 1;
+            int catMovieID = catMovieId;
 
-            stmt.setInt(1, selectedCategoryID);
+            stmt.setInt(1, catMovieID);
             stmt.setInt(2, selectedMovieID);
-            stmt.setInt(3, catMovieID);
+            stmt.setInt(3, selectedCategoryID);
 
             stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            
         } catch (SQLServerException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
