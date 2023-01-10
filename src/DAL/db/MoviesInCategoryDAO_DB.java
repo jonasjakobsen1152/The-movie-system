@@ -76,9 +76,28 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
     @Override
     public void deleteMovieFromCategory(Category category, Movie selectedMovie, int selectedCMId) {
 
+        String sql = "DELETE FROM CatMovie WHERE movie_id = ? AND category_id = ?";
+
+        try (Connection conn = dbConnector.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1,selectedMovie.getId());
+            stmt.setInt(2,category.getId());
+
+            stmt.executeUpdate(); //executeUpdate method is used to execute the SQL statement and returns the number of rows affected.
+
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
     }
 
-    public int getCatMovieID(int movieID, int categoryID){
+
+
+
+        public int getCatMovieID(int movieID, int categoryID){
         int catmID = 0;
 
         String sql = "SELECT * FROM CatMovie CATM WHERE CATM.MovieID =" + movieID + "AND" + "CATM.CategoryID=" + categoryID + ";";
