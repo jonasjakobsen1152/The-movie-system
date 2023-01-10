@@ -322,10 +322,15 @@ public class MainController extends BaseController implements Initializable {
             if(file.exists()) {
                 BasicFileAttributes bfr = Files.readAttributes(Path.of(filePath), BasicFileAttributes.class);
 
-                FileTime lastAcessed = bfr.lastAccessTime();
+                FileTime lastAccessed = (bfr.lastAccessTime());
 
-                LocalDate localDate = now().atZone(ZoneId.systemDefault()).toLocalDate();
-                Period period = Period.between(lastAcessed,localDate);
+                LocalDate dateToCheck = lastAccessed.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+                LocalDate localdate = Instant.now().atZone(ZoneId.systemDefault()).toLocalDate();
+
+                Period yearsBetween = Period.ofYears(Period.between(dateToCheck,localdate).getYears());
+
+                System.out.println(yearsBetween);
                 /*
                 BasicFileAttributes bfr = Files.readAttributes(Path.of(filePath), BasicFileAttributes.class); //Gets the attributes of the file
 
