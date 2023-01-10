@@ -57,7 +57,6 @@ public class MainController extends BaseController implements Initializable {
     public Movie movie;
 
     public Movie selectedMovie;
-    public ListView lstMoviesToBeReviewed;
     private ObservableList<Movie> moviesToBeReViewed;
     private int categoryNumber;
     public Category selectedCategory;
@@ -358,9 +357,21 @@ public class MainController extends BaseController implements Initializable {
         ArrayList<Movie> outDatedMovies = oldMovies();
         if (outDatedMovies.size() != 0) {
             moviesToBeReViewed = FXCollections.observableArrayList();
-            moviesToBeReViewed = (ObservableList<Movie>) movieModel.getAllMovies();
+            moviesToBeReViewed.addAll(oldMovies());
 
-            lstMoviesToBeReviewed.setItems(moviesToBeReViewed);
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/GUI/View/OldMovies.fxml"));
+            AnchorPane pane = (AnchorPane) loader.load();
+            MovieDataInputs movieDataInputs = loader.getController();
+            movieDataInputs.setSelectedList(moviesToBeReViewed);
+
+            Stage dialogWindow = new Stage();
+            dialogWindow.setTitle("Old Movies");
+            dialogWindow.setResizable(false);
+            Scene scene = new Scene(pane);
+            dialogWindow.setScene(scene);
+
+            dialogWindow.showAndWait();
         }
     }
 
@@ -369,10 +380,10 @@ public class MainController extends BaseController implements Initializable {
             allMovies = movieModel.getAllMovies(); // Creates an Arraylist of all movies.
 
             ArrayList<Movie> outDatedMovies = new ArrayList<>(); // Creates a new list for outDatedMovies
-            for (Movie movieCheck : allMovies) {
-                String filePath = movieCheck.getFilepath();
+            for (Movie movieToBeChecked : allMovies) {
+                String filePath = movieToBeChecked.getFilepath();
                 File file = new File(filePath); // So we can call the methods from the class File.
-                if (file.exists() && movieCheck.getPersonalRating() <= 6) { // Check if the file Exist, and if it has a personal rating at 6 or higher.
+                if (file.exists() && movieToBeChecked.getPersonalRating() <= 6) { // Check if the file Exist, and if it has a personal rating at 6 or higher.
                     BasicFileAttributes bfr = Files.readAttributes(Path.of(filePath), BasicFileAttributes.class);
 
                     FileTime lastAccessed = bfr.lastAccessTime(); // Checks when the Movie was last accessed(Seen/opened).
@@ -383,9 +394,8 @@ public class MainController extends BaseController implements Initializable {
                     Period yearsBetween = Period.between(dateToCheck, localdate); // Calculates the years between the two diffrent days.
 
                     if (yearsBetween.getYears() >= 2) {
-                        outDatedMovies.add(movieCheck);
+                        outDatedMovies.add(movieToBeChecked);
                     }
-
                 }
             }
             return outDatedMovies;

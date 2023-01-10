@@ -2,26 +2,30 @@ package GUI.Controller;
 
 import BE.Movie;
 import GUI.Model.MovieModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class MovieDataInputs {
 
     public TextField txtIMDBChange;
     public Text txt;
-
     public Button txtChangeIMDB;
+    public TableView lstMoviesToBeReviewed;
+    public TableColumn clmTitles;
+
+    private ObservableList<Movie> lstofMovies;
     private MovieModel movieModel = new MovieModel();
     public TextField txtTitle;
     public TextField txtIMDBRating;
@@ -92,4 +96,14 @@ public class MovieDataInputs {
         stage.close();
     }
 
+    public void setSelectedList(ObservableList<Movie> moviesToBeReViewed) {
+        ObservableList<Object> oldMovies = FXCollections.observableArrayList();
+        for (Movie movieTitles: moviesToBeReViewed) {
+            oldMovies.add(movieTitles);
+        }
+
+        //Sets the tableView, and then what it should show.
+        clmTitles.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
+        lstMoviesToBeReviewed.setItems(oldMovies);
+    }
 }
