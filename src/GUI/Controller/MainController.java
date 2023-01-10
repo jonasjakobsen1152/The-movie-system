@@ -286,7 +286,7 @@ public class MainController extends BaseController implements Initializable {
 
             if(seletedMovie != null) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/GUI/View/MainWindow.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/GUI/View/editIMDB.fxml"));
 
                 Scene scene = new Scene(fxmlLoader.load(), 600, 400);
                 Stage stage = new Stage();
@@ -294,8 +294,8 @@ public class MainController extends BaseController implements Initializable {
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow()); // Does so the window has to be closed before the programm can be accessed again
                 stage.setScene(scene);
-                MovieDataInputs songDataInputs = fxmlLoader.getController();
-                songDataInputs.setSelectMovie(selectedMovie);
+                MovieDataInputs movieDataInputs = fxmlLoader.getController();
+                movieDataInputs.setSelectMovie(seletedMovie);
                 stage.showAndWait();
                 updateMovieModel(); // Updates the lstMovies
 

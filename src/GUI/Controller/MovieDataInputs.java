@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -16,6 +17,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class MovieDataInputs {
+
+    public TextField txtIMDBChange;
+    public Text txt;
+
+    public Button txtChangeIMDB;
     private MovieModel movieModel = new MovieModel();
     public TextField txtTitle;
     public TextField txtIMDBRating;
@@ -64,11 +70,11 @@ public class MovieDataInputs {
 
     public void handleEditIMDB(ActionEvent actionEvent) throws Exception {
         int id = selectMovie.getId();
-        String updatedTitle = txtTitle.getText();
-        Float updatedIMDBRating = Float.valueOf(txtIMDBRating.getText());
+        String placeHolderTitle = selectMovie.getTitle();
+        Float placeHolderIMDBRating = selectMovie.getImdbRating();
         Float updatedPersonalRating = Float.valueOf(txtPersonalRating.getText());
-        String updatedFilePath = txtFilePath.getText();
-        movieModel.updateMovie(new Movie(id, updatedTitle, updatedIMDBRating, updatedPersonalRating, updatedFilePath));
+        String placeHolderFilePath = selectMovie.getFilepath();
+        movieModel.updateMovie(new Movie(id, placeHolderTitle, placeHolderIMDBRating, updatedPersonalRating, placeHolderFilePath));
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();
 
@@ -77,10 +83,7 @@ public class MovieDataInputs {
 
     public void setSelectMovie(Movie m) {
         selectMovie = m;
-        txtTitle.setText(selectMovie.getTitle());
         txtPersonalRating.setText(String.valueOf(selectMovie.getPersonalRating()));
-        txtIMDBRating.setText(String.valueOf(selectMovie.getImdbRating()));
-        txtFilePath.setText(selectMovie.getFilepath());
     }
 
 
@@ -88,4 +91,5 @@ public class MovieDataInputs {
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
+
 }
