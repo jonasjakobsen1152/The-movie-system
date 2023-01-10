@@ -47,7 +47,7 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
     @Override
     public void addMovieToCategory(Category selectedCategory, Movie selectedMovie, int catMovieId) {
 
-        String sql = "INSERT INTO CatMovie (CatMovieID, MovieId, CategoryID) VALUES (?,?,?);";
+        String sql = "INSERT INTO CatMovie ( MovieId, CategoryID) VALUES (?,?);";
 
         try(Connection connection = dbConnector.getConnection()){
 
@@ -58,9 +58,9 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
             int selectedMovieID = selectedMovie.getId();
             int catMovieID = catMovieId;
 
-            stmt.setInt(1, catMovieID);
-            stmt.setInt(2, selectedMovieID);
-            stmt.setInt(3, selectedCategoryID);
+            //stmt.setInt(1, catMovieID);
+            stmt.setInt(1, selectedMovieID);
+            stmt.setInt(2, selectedCategoryID);
 
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
@@ -100,7 +100,7 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
         public int getCatMovieID(int movieID, int categoryID){
         int catmID = 0;
 
-        String sql = "SELECT * FROM CatMovie CATM WHERE CATM.MovieID =" + movieID + "AND" + "CATM.CategoryID=" + categoryID + ";";
+        String sql = "SELECT * FROM CatMovie CATM WHERE CATM.MovieID =" + movieID + " AND " + "CATM.CategoryID=" + categoryID + ";";
 
         try(Connection connection = dbConnector.getConnection()) {
 
