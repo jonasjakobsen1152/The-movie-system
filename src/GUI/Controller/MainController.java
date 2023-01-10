@@ -6,6 +6,8 @@ import GUI.Model.CategoryModel;
 import GUI.Model.MRSModel;
 import GUI.Model.MovieModel;
 import GUI.Model.MoviesInCategoryModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,6 +57,8 @@ public class MainController extends BaseController implements Initializable {
     public Movie movie;
 
     public Movie selectedMovie;
+    public ListView lstMoviesToBeReviewed;
+    private ObservableList<Movie> moviesToBeReViewed;
     private int categoryNumber;
     public Category selectedCategory;
     public TableColumn<Category, String> clmCategories;
@@ -353,11 +357,12 @@ public class MainController extends BaseController implements Initializable {
     public void checkOldMovies() throws Exception {
         ArrayList<Movie> outDatedMovies = oldMovies();
         if (outDatedMovies.size() != 0) {
-            int size = oldMovies().size();
-        informationUser("Following movies has not been seen for two years" + "\n" + oldMovies());
-            };
-        }
+            moviesToBeReViewed = FXCollections.observableArrayList();
+            moviesToBeReViewed = (ObservableList<Movie>) movieModel.getAllMovies();
 
+            lstMoviesToBeReviewed.setItems(moviesToBeReViewed);
+        }
+    }
 
         public ArrayList<Movie> oldMovies () throws Exception {
             ArrayList<Movie> allMovies;
@@ -367,7 +372,7 @@ public class MainController extends BaseController implements Initializable {
             for (Movie movieCheck : allMovies) {
                 String filePath = movieCheck.getFilepath();
                 File file = new File(filePath); // So we can call the methods from the class File.
-                if (file.exists() && movieCheck.getPersonalRating() >= 6) { // Check if the file Exist, and if it has a personal rating at 6 or higher.
+                if (file.exists() && movieCheck.getPersonalRating() <= 6) { // Check if the file Exist, and if it has a personal rating at 6 or higher.
                     BasicFileAttributes bfr = Files.readAttributes(Path.of(filePath), BasicFileAttributes.class);
 
                     FileTime lastAccessed = bfr.lastAccessTime(); // Checks when the Movie was last accessed(Seen/opened).
