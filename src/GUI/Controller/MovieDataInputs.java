@@ -23,14 +23,13 @@ public class MovieDataInputs {
     public Text txt;
     public Button txtChangeIMDB;
     public TableView lstMoviesToBeReviewed;
+    private MainController mainController;
+    private ObservableList<Movie> moviesToBeReViewed;
     public TableColumn clmTitles;
-
-    private ObservableList<Movie> lstofMovies;
     private MovieModel movieModel = new MovieModel();
     public TextField txtTitle;
     public TextField txtIMDBRating;
     public TextField txtPersonalRating;
-    public TextField txtYear;
     public TextField txtFilePath;
     public Button btnCreateMovie;
     public Button txtChooseFile;
@@ -107,12 +106,17 @@ public class MovieDataInputs {
 /*
     A method to delete movies from a list of old Movies
  */
-    public void handleDeleteMovie(ActionEvent actionEvent) throws Exception {
-         selectMovie = (Movie) lstMoviesToBeReviewed.getSelectionModel().getSelectedItem();
-         movieModel.deleteMovie(selectMovie);
-         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-         stage.close();
-         MainController mainController = new MainController();
-         mainController.checkOldMovies();
+public void handleDeleteMovie(ActionEvent actionEvent) throws Exception {
+    selectMovie = (Movie) lstMoviesToBeReviewed.getSelectionModel().getSelectedItem();
+    movieModel.deleteMovie(selectMovie);
+    saveController(mainController,moviesToBeReViewed);
+    moviesToBeReViewed.clear();
+    moviesToBeReViewed.addAll(mainController.oldMovies());
+}
+    public void saveController(MainController mainController, ObservableList<Movie> moviesToBeReViewed) {
+        this.mainController = mainController;
+        this.moviesToBeReViewed = moviesToBeReViewed;
+        setSelectedList(moviesToBeReViewed);
     }
+
 }

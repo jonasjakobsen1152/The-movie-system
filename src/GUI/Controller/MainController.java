@@ -58,6 +58,9 @@ public class MainController extends BaseController implements Initializable {
 
     public Movie selectedMovie;
     private ObservableList<Movie> moviesToBeReViewed;
+    private static boolean oldMoviesChecked = false;
+    MovieDataInputs movieDataInputs;
+    private Stage dialogWindow;
     private int categoryNumber;
     public Category selectedCategory;
     public TableColumn<Category, String> clmCategories;
@@ -359,23 +362,31 @@ public class MainController extends BaseController implements Initializable {
             moviesToBeReViewed = FXCollections.observableArrayList();
             moviesToBeReViewed.addAll(oldMovies());
 
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/GUI/View/OldMovies.fxml"));
-            AnchorPane pane = (AnchorPane) loader.load();
-            MovieDataInputs movieDataInputs = loader.getController();
-            movieDataInputs.setSelectedList(moviesToBeReViewed);
+            if(oldMoviesChecked == false) {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/GUI/View/OldMovies.fxml"));
+                AnchorPane pane = (AnchorPane) loader.load();
+                movieDataInputs = loader.getController();
+                movieDataInputs.saveController(this, moviesToBeReViewed); //Saves the controller object so MovieDataInput can update the TableView when a movie is deleted.
 
-            Stage dialogWindow = new Stage();
-            dialogWindow.setTitle("Old Movies");
-            dialogWindow.setResizable(false);
-            Scene scene = new Scene(pane);
-            dialogWindow.setScene(scene);
+                dialogWindow = new Stage();
+                dialogWindow.setTitle("Old Movies");
+                dialogWindow.setResizable(false);
+                Scene scene = new Scene(pane);
+                dialogWindow.setScene(scene);
 
-            dialogWindow.showAndWait();
+                dialogWindow.showAndWait();
+                oldMoviesChecked = true;
+            }
+            else {
+                movieDataInputs.setSelectedList(moviesToBeReViewed);
+                dialogWindow.show();
+            }
         }
     }
 
         public ArrayList<Movie> oldMovies () throws Exception {
+            movieModel = new MovieModel();
             ArrayList<Movie> allMovies;
             allMovies = movieModel.getAllMovies(); // Creates an Arraylist of all movies.
 
@@ -393,12 +404,12 @@ public class MainController extends BaseController implements Initializable {
 
                     Period yearsBetween = Period.between(dateToCheck, localdate); // Calculates the years between the two diffrent days.
 
-                    if (yearsBetween.getYears() >= 2) {
+                    if (yearsBetween.getYears() >= 2) { // Checks whether the time since the movie was last watched is two years ago
                         outDatedMovies.add(movieToBeChecked);
                     }
                 }
             }
-            return outDatedMovies;
+            return outDatedMovies; // Returns the list of the outdated Movies to the method checkOldMovies.
         }
     }
 
