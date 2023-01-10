@@ -22,12 +22,16 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static java.time.Instant.now;
 
 public class MainController extends BaseController implements Initializable {
     public TableView<Movie> lstMovies;
@@ -316,19 +320,30 @@ public class MainController extends BaseController implements Initializable {
         String filePath = movieCheck.getFilepath();
             File file = new File(filePath);
             if(file.exists()) {
+                BasicFileAttributes bfr = Files.readAttributes(Path.of(filePath), BasicFileAttributes.class);
+
+                FileTime lastAcessed = bfr.lastAccessTime();
+
+                LocalDate localDate = now().atZone(ZoneId.systemDefault()).toLocalDate();
+                Period period = Period.between(lastAcessed,localDate);
+                /*
                 BasicFileAttributes bfr = Files.readAttributes(Path.of(filePath), BasicFileAttributes.class); //Gets the attributes of the file
 
                 Period between = Period.between(Instant.ofEpochMilli(bfr.lastAccessTime().toMillis()).atZone(ZoneId.systemDefault()).toLocalDate(),
                         Instant.now().atZone(ZoneId.systemDefault()).toLocalDate());
                 int yearsBetween = between.getYears();
+                System.out.println(yearsBetween);
 
+                 */
                 return movieCheck;
-                //System.out.println(lastModifiedTime);
+
             }
 
         }
         return null;
     }
-
+public Movie checkOldMovies(){
+        return null;
+}
 
 }
