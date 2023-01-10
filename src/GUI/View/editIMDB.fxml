@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="285.0" prefWidth="322.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MovieDataInputs">
+   <children>
+      <Text fx:id="txt" layoutX="84.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change the IMDBRating " wrappingWidth="154.828125">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Button fx:id="txtChangeIMDB" layoutX="110.0" layoutY="177.0" mnemonicParsing="false" onAction="#handleEditIMDB" text="Edit IMDBRating" />
+      <TextField fx:id="txtPersonalRating" layoutX="87.0" layoutY="108.0" />
+   </children>
+</AnchorPane>

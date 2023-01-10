@@ -11,5 +11,5 @@ public interface IMovieDAO {
 
     public void deleteMovie(Movie movie) throws Exception;
 
-    void updateMovie(Movie updatedMovie);
+    void updateMovie(Movie movie);
 }

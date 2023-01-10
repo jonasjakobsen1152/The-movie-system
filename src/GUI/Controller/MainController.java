@@ -18,14 +18,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileTime;
+import java.time.Instant;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -286,7 +286,7 @@ public class MainController extends BaseController implements Initializable {
 
             if(seletedMovie != null) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/GUI/View/MainWindow.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("/GUI/View/editIMDB.fxml"));
 
                 Scene scene = new Scene(fxmlLoader.load(), 600, 400);
                 Stage stage = new Stage();
@@ -294,8 +294,8 @@ public class MainController extends BaseController implements Initializable {
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow()); // Does so the window has to be closed before the programm can be accessed again
                 stage.setScene(scene);
-                MovieDataInputs songDataInputs = fxmlLoader.getController();
-                songDataInputs.setSelectMovie(selectedMovie);
+                MovieDataInputs movieDataInputs = fxmlLoader.getController();
+                movieDataInputs.setSelectMovie(seletedMovie);
                 stage.showAndWait();
                 updateMovieModel(); // Updates the lstMovies
 
@@ -308,7 +308,7 @@ public class MainController extends BaseController implements Initializable {
         }
     }
 
-    public void oldMovies() throws Exception {
+    public Movie oldMovies() throws Exception {
         ArrayList<Movie> allMovies;
         allMovies = movieModel.getAllMovies();
 
@@ -318,11 +318,17 @@ public class MainController extends BaseController implements Initializable {
             if(file.exists()) {
                 BasicFileAttributes bfr = Files.readAttributes(Path.of(filePath), BasicFileAttributes.class); //Gets the attributes of the file
 
-                FileTime lastModifiedTime = bfr.lastAccessTime();
+                Period between = Period.between(Instant.ofEpochMilli(bfr.lastAccessTime().toMillis()).atZone(ZoneId.systemDefault()).toLocalDate(),
+                        Instant.now().atZone(ZoneId.systemDefault()).toLocalDate());
+                int yearsBetween = between.getYears();
 
-                System.out.println(lastModifiedTime);
+                return movieCheck;
+                //System.out.println(lastModifiedTime);
             }
 
         }
+        return null;
     }
+
+
 }
