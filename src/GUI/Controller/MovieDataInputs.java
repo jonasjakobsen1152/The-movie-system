@@ -96,14 +96,23 @@ public class MovieDataInputs {
         stage.close();
     }
 
+    /*
+       A method used to set list of old movies in opened window
+     */
     public void setSelectedList(ObservableList<Movie> moviesToBeReViewed) {
-        ObservableList<Object> oldMovies = FXCollections.observableArrayList();
-        for (Movie movieTitles: moviesToBeReViewed) {
-            oldMovies.add(movieTitles);
-        }
-
         //Sets the tableView, and then what it should show.
         clmTitles.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
-        lstMoviesToBeReviewed.setItems(oldMovies);
+        lstMoviesToBeReviewed.setItems(moviesToBeReViewed);
+    }
+/*
+    A method to delete movies from a list of old Movies
+ */
+    public void handleDeleteMovie(ActionEvent actionEvent) throws Exception {
+         selectMovie = (Movie) lstMoviesToBeReviewed.getSelectionModel().getSelectedItem();
+         movieModel.deleteMovie(selectMovie);
+         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+         stage.close();
+         MainController mainController = new MainController();
+         mainController.checkOldMovies();
     }
 }
