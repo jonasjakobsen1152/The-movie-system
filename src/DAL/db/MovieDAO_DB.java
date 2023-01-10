@@ -80,7 +80,7 @@ public class MovieDAO_DB implements IMovieDAO {
         }
     }
 
-    public void editIMDB(Movie movie) throws Exception {
+    public void updateMovie(Movie movie) {
         try (Connection conn = databaseConnector.getConnection()) {
             String sql = "Update movie set Title = ?, IMDBRating = ?, PersonalRating = ?, FilePath = ? WHERE MovieID = ?;";
 
@@ -97,7 +97,7 @@ public class MovieDAO_DB implements IMovieDAO {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new Exception("Could not update IMDB Rating", e);
+
         }
     }
 
@@ -119,11 +119,6 @@ public class MovieDAO_DB implements IMovieDAO {
             ex.printStackTrace();
             throw new Exception(ex);
         }
-
-    }
-
-    @Override
-    public void updateMovie(Movie updatedMovie) {
 
     }
 }
