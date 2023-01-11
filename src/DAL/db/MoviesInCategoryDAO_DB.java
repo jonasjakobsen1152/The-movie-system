@@ -76,7 +76,9 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
     @Override
     public void deleteMovieFromCategory(Category category, Movie selectedMovie, int selectedCMId) {
 
-        String sql = "DELETE FROM CatMovie WHERE CatMovieID = ? AND CategoryID = ?";
+        String sql = "Delete from CatMovie \n" +
+                "Where CatMovie.MovieID = ? \n" +
+                "And CatMovie.CategoryID = ?";
 
         try (Connection conn = dbConnector.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(sql);
