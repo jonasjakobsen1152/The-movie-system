@@ -38,4 +38,8 @@ public class MoviesInCategoryModel {
         moviesToBeViewed.add(movie);
     }
 
+    public void deleteMovieFromCategory(Movie selectedMovie, Category selectedCategory, int catMovieID){
+        moviesInCategoryManager.deleteMovieFromCategory(selectedMovie,selectedCategory,catMovieID);
+    }
+
 }

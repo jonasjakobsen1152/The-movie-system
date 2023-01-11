@@ -132,6 +132,17 @@ public class MainController extends BaseController implements Initializable {
                 throw new RuntimeException(e);
             }
         });
+        lstMovieByCategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+                selectedMovie = newValue);
+        try {
+            movieModel = new MovieModel();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        showAllMoviesCategories();
+
+
+
     }
 
     @Override
@@ -302,11 +313,29 @@ public class MainController extends BaseController implements Initializable {
         }
     }
 
-    /*
-    Deletes a movie from the category
-     */
-    public void handleDeleteMovieFromCategory(ActionEvent actionEvent) {
+    private void updateMovieToCategoryModel() throws SQLException {
+        MoviesInCategoryModel updateMovieToCategoryModel = new MoviesInCategoryModel();
+        moviesInCategoryModel = updateMovieToCategoryModel;
+        lstMovieByCategory.setItems(moviesInCategoryModel.getMoviesToBeViewed());
+        moviesInCategoryModel.showList(categoryNumber);
     }
+
+    public void handleDeleteMovieFromCategory(ActionEvent actionEvent) throws Exception {
+        if (lstMovieByCategory.getSelectionModel().getSelectedItem() == null || selectedCategory == null) {
+            alertUser("Please select the movie you wish to delete");
+        }
+        else {
+            selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
+            selectedMovie = lstMovieByCategory.getSelectionModel().getSelectedItem();
+            int movieID = selectedMovie.getId();
+            int categoryID = selectedCategory.getId();
+            int movieToBeDeleted = moviesInCategoryModel.getCatMovieID(movieID,categoryID);
+            moviesInCategoryModel.deleteMovieFromCategory(selectedMovie, selectedCategory, movieToBeDeleted);
+            updateMovieToCategoryModel();
+
+        }
+    }
+
 
     public void handlePlayMovie(ActionEvent actionEvent) {
 

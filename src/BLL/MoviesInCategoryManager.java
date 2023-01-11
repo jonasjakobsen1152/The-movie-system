@@ -24,4 +24,8 @@ public class MoviesInCategoryManager {
         moviesInCategoryDAO_DB.addMovieToCategory(category,movie,catMovieID);
     }
 
+    public void deleteMovieFromCategory(Movie selectedMovie, Category selectedCategory, int catMovieID){
+        moviesInCategoryDAO_DB.deleteMovieFromCategory(selectedCategory,selectedMovie, catMovieID);
+    }
+
 }
