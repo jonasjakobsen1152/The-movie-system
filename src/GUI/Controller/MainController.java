@@ -147,8 +147,9 @@ public class MainController extends BaseController implements Initializable {
         });
         lstMovieByCategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 selectedMovie = newValue);
+
         try {
-            movieModel = new MovieModel();
+            moviesInCategoryModel = new MoviesInCategoryModel();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -251,6 +252,8 @@ public class MainController extends BaseController implements Initializable {
             Optional<ButtonType> action = alert.showAndWait();
             if (action.get() == ButtonType.OK) {
                 movieModel.deleteMovie(getSelectedMovie());
+                updateMovieModel();
+                updateMovieToCategoryModel();
             }
         }
     }
@@ -334,12 +337,12 @@ public class MainController extends BaseController implements Initializable {
     }
 
     public void handleDeleteMovieFromCategory(ActionEvent actionEvent) throws Exception {
-        if (lstMovieByCategory.getSelectionModel().getSelectedItem() == null || selectedCategory == null) {
+        selectedMovie = lstMovieByCategory.getSelectionModel().getSelectedItem();
+        selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
+        if (selectedMovie == null || selectedCategory == null) {
             alertUser("Please select the movie you wish to delete");
         }
         else {
-            selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
-            selectedMovie = lstMovieByCategory.getSelectionModel().getSelectedItem();
             int movieID = selectedMovie.getId();
             int categoryID = selectedCategory.getId();
             int movieToBeDeleted = moviesInCategoryModel.getCatMovieID(movieID,categoryID);
