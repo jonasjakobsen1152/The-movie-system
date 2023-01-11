@@ -122,6 +122,19 @@ public class MainController extends BaseController implements Initializable {
                     alertUser("Please select a movie");
                 }
             }  });
+        lstMovieByCategory.setOnMouseClicked(event -> { // Checks for click.
+            if (event.getClickCount() == 2) //Ved dobbeltklik kan man starte musikken
+            {
+                if (selectedMovie != null)
+                    try {
+                        movieModel.play(selectedMovie);       //Håndtere afspilning af sange.
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                else {
+                    alertUser("Please select a movie");
+                }
+            }  });
         lstCategories.setOnMouseClicked(event -> {
             Category selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
             categoryNumber = selectedCategory.getId();
