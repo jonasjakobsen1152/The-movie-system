@@ -162,8 +162,8 @@ public class MainController extends BaseController implements Initializable {
 
         lstMovieByCategory.setItems(moviesInCategoryModel.getMoviesToBeViewed());
         clmTitleInCategory.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
-        clmTitleInCategory.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("ImdbRating"));
-        clmTitleInCategory.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("PersonalRating"));
+        clmPersonalInCategory.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("ImdbRating"));
+        clmIMDBInCategory.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("PersonalRating"));
         //System.out.println(movie.getTitle());
 
     }

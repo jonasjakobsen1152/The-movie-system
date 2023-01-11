@@ -22,7 +22,7 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
         try (Connection connection = dbConnector.getConnection()){
 
             String sql = "SELECT * FROM Categories cat, CatMovie catm, Movie m \n" +
-                    " WHERE m.MovieID = catm.MovieID and catm.CategoryID =" + movieNumber +
+                    " WHERE m.MovieID = catm.MovieID AND catm.CategoryID =" + movieNumber +
                     " AND cat.CategoryID = catm.CategoryID;";
 
             Statement statement = connection.createStatement();
