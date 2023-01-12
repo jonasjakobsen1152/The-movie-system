@@ -10,6 +10,9 @@ public class MyDatabaseConnector {
     //Class will easv.mrs.be included when we start working on DATABASES
     private SQLServerDataSource dataSource;
 
+    /**
+     * Connects to the database
+     */
     public MyDatabaseConnector()
     {
         dataSource = new SQLServerDataSource();
