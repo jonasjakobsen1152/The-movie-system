@@ -96,13 +96,14 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
 
         String sql = "Delete from CatMovie \n" +
                 "Where CatMovie.MovieID = ? \n" +
-                "And CatMovie.CategoryID = ?";
+                "And CatMovie.CategoryID = ? AND CatMovie.CatMovieID = ?";
 
         try (Connection conn = dbConnector.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1,selectedMovie.getId());
             stmt.setInt(2,category.getId());
+            stmt.setInt(3, selectedCMId);
 
             stmt.executeUpdate(); //executeUpdate method is used to execute the SQL statement and returns the number of rows affected.
 
