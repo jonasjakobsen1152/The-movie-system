@@ -38,8 +38,8 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
                 while (resultSet.next()){
                     int id = resultSet.getInt("MovieID");
                     String title = resultSet.getString("Title");
-                    int pRating = resultSet.getInt("PersonalRating");
-                    int imdbRating = resultSet.getInt("IMDBRating");
+                    Float pRating = resultSet.getFloat("PersonalRating");
+                    Float imdbRating = resultSet.getFloat("IMDBRating");
                     String moviePath = resultSet.getString("FilePath");
 
                     Movie movie = new Movie(id, title, pRating, imdbRating, moviePath);

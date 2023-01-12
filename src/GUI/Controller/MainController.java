@@ -150,21 +150,18 @@ public class MainController extends BaseController implements Initializable {
             }
         });
         lstMovieByCategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-                selectedMovie = newValue);
-
+                selectedMovie = newValue); // This listener will be triggered when the selected item in the lstMovieByCategory object changes,
+                                           // and will update the value of the selectedMovie variable with the new selected item.
         try {
             moviesInCategoryModel = new MoviesInCategoryModel();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         showAllMoviesCategories();
-
-
-
     }
 
     @Override
-    public void setup() {
+    public void setup() { //Henter movieModel op, sådan at vi kan bruge den i vores showAllMoviesVategories methode
         movieModel = getModel().getMovieModel();
 
         txtFilter.textProperty().addListener(((observable, oldValue, newValue) -> {
@@ -179,7 +176,7 @@ public class MainController extends BaseController implements Initializable {
 
     public void showAllMoviesCategories() {
 
-        //Sets the tableView, and then what it should show.
+        //Sets the tableView, and then show all the categories that has been created.
         clmTitle.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
         clmIMDB.setCellValueFactory(new PropertyValueFactory<Movie, Float>("ImdbRating"));
         clmPersonal.setCellValueFactory(new PropertyValueFactory<Movie, Float>("PersonalRating"));
@@ -193,14 +190,16 @@ public class MainController extends BaseController implements Initializable {
         clmTitleInCategory.setCellValueFactory(new PropertyValueFactory<Movie, String>("Title"));
         clmPersonalInCategory.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("ImdbRating"));
         clmIMDBInCategory.setCellValueFactory(new PropertyValueFactory<Movie, Integer>("PersonalRating"));
-        //System.out.println(movie.getTitle());
+
 
     }
 
 
     /*
-    A method to Add new movies to the database
+    A method to Add new movies to the database.
+    This is the code that let you create a movie, if you fulfill the requirements.
      */
+
     public void handleCreateMovie(ActionEvent actionEvent) throws Exception {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/GUI/View/CreateMovieWindow.fxml"));
@@ -220,27 +219,28 @@ public class MainController extends BaseController implements Initializable {
         updateMovieModel();
     }
 
-    private void updateMovieModel() throws Exception {
+    private void updateMovieModel() throws Exception { //Allows you to update the movieModel.
         MovieModel updateMovieModel = new MovieModel();
         movieModel = updateMovieModel;
         lstMovies.setItems(movieModel.getObservableMovie());
 
     }
 
-    private void updateCategoryModel() throws Exception {
+    private void updateCategoryModel() throws Exception { //Allows you to update the categoryModel.
         CategoryModel updateCategoryModel = new CategoryModel();
         categoryModel = updateCategoryModel;
         lstCategories.setItems(categoryModel.getAllCategories());
     }
 
-    public Movie getSelectedMovie() {
+    public Movie getSelectedMovie() { //Tells the program that which movie has been clicked on.
         Movie movie;
         movie = lstMovies.getSelectionModel().getSelectedItem();
         return movie;
     }
 
     /*
-    A method to delete movies from the database
+    A method to delete movies from the database.
+    This method allows you to delete the movie that you have clicked on.
      */
     public void handleDeleteMovie(ActionEvent actionEvent) throws Exception {
         Movie selectedMovie = lstMovies.getSelectionModel().getSelectedItem();
@@ -250,11 +250,11 @@ public class MainController extends BaseController implements Initializable {
             alert.setHeaderText("Choose a movie to delete");
             alert.show();
         } else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION); //alertUser method that asks the person, to make sure they want to delete the movie.
             alert.setTitle("Warning");
             alert.setHeaderText("Are you sure you want to delete: " + selectedMovie.getTitle().concat("?"));
             Optional<ButtonType> action = alert.showAndWait();
-            if (action.get() == ButtonType.OK) {
+            if (action.get() == ButtonType.OK) { //If the button was pressed to delete, then the program will update, so that it is no longer there.
                 movieModel.deleteMovie(getSelectedMovie());
                 updateMovieModel();
                 updateMovieToCategoryModel();
@@ -263,7 +263,8 @@ public class MainController extends BaseController implements Initializable {
     }
 
     /*
-    Creates a new category in the database
+    Creates a new category in the database.
+    This method allows you to create a category of any type you would like.
      */
     public void handleCreateCategory(ActionEvent actionEvent) throws Exception {
         FXMLLoader loader = new FXMLLoader();
@@ -285,7 +286,8 @@ public class MainController extends BaseController implements Initializable {
     }
 
     /*
-    Deletes a category from the database
+    Deletes a category from the database.
+    This method allows you to delete the categories that has been made.
      */
     public void handleDeleteCategory(ActionEvent actionEvent) throws Exception {
         Category selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
@@ -306,14 +308,15 @@ public class MainController extends BaseController implements Initializable {
         }
     }
 
-    private Category getSelectedCategory() {
+    private Category getSelectedCategory() { //Tells the program which category that has been selected.
         Category category;
         category = lstCategories.getSelectionModel().getSelectedItem();
         return category;
     }
 
     /*
-    Adds a movie from the database to the chosen category
+    Adds a movie from the database to the chosen category.
+    This method allows you to add a movie to the specific category.
      */
     public void handleAddMovieToCategory(ActionEvent actionEvent) {
         selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
@@ -333,17 +336,17 @@ public class MainController extends BaseController implements Initializable {
         }
     }
 
-    private void updateMovieToCategoryModel() throws SQLException {
+    private void updateMovieToCategoryModel() throws SQLException { //If a movie has been added to the category, it tells the program to update the category, so you can see the movie.
         MoviesInCategoryModel updateMovieToCategoryModel = new MoviesInCategoryModel();
         moviesInCategoryModel = updateMovieToCategoryModel;
         lstMovieByCategory.setItems(moviesInCategoryModel.getMoviesToBeViewed());
         moviesInCategoryModel.showList(categoryNumber);
     }
 
-    public void handleDeleteMovieFromCategory(ActionEvent actionEvent) throws Exception {
+    public void handleDeleteMovieFromCategory(ActionEvent actionEvent) throws Exception { //Allows you to delete a movie from a specific category
         selectedMovie = lstMovieByCategory.getSelectionModel().getSelectedItem();
         selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
-        if (selectedMovie == null || selectedCategory == null) {
+        if (selectedMovie == null || selectedCategory == null) { //Tells the user that the person has to click on a movie, in order to delete it.
             alertUser("Please select the movie you wish to delete");
         }
         else {
@@ -357,11 +360,13 @@ public class MainController extends BaseController implements Initializable {
     }
 
 
-    public void handlePlayMovie(ActionEvent actionEvent) {
-
+    public void handlePlayMovie(ActionEvent actionEvent) { //Allows the person to play the chosen movie.
+        // Check if a movie has been selected by the user
         if (selectedMovie == null) {
+            // If no movie has been selected, alert the user to choose a movie
             alertUser("Incorrect filepath, try choosing a movie");
         } else {
+            // If a movie has been selected, call the play method on the movieModel object
             movieModel.play(selectedMovie);
         }
     }
@@ -372,13 +377,8 @@ public class MainController extends BaseController implements Initializable {
         alert.setHeaderText(error + "");
         alert.showAndWait();
     }
-    private void informationUser(String information){
-        Alert info = new Alert(Alert.AlertType.INFORMATION);
-        info.setTitle("Regarding oldMovies");
-        info.setHeaderText(information + "");
-        info.showAndWait();
-    }
-    public void handleEditIMDB(ActionEvent actionEvent) {
+
+    public void handleEditIMDB(ActionEvent actionEvent) { //If the user decides that a movie should get a new personRating, then this method allows the user to change it.
         try {
             Movie seletedMovie = lstMovies.getSelectionModel().getSelectedItem();
 
