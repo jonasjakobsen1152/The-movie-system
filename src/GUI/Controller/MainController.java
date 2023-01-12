@@ -137,13 +137,12 @@ public class MainController extends BaseController implements Initializable {
             }  });
         lstCategories.setOnMouseClicked(event -> {
             Category selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
-            if (selectedCategory == null){
+            if (selectedCategory == null){ //Fortæller user at personen skal lave en category
               alertUser("Please make a category");
             }
             else {
                 categoryNumber = selectedCategory.getId();
             }
-
             try{
                 moviesInCategoryModel.showList(categoryNumber);
             } catch (SQLException e) {
