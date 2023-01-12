@@ -42,6 +42,10 @@ public class MovieDataInputs {
     public MovieDataInputs() throws Exception {
     }
 
+    /**
+     * This is used to choose a file you want to add to the movie list
+     * @param actionEvent
+     */
     public void handleChooseFile(ActionEvent actionEvent) {
         String fileName;
         Stage stage = new Stage();
@@ -57,6 +61,10 @@ public class MovieDataInputs {
         }
     }
 
+    /**
+     * This is used to create a new movie based on the given information such as title and filepath
+     * @param actionEvent
+     */
     public void handleCreateMovie(ActionEvent actionEvent) {
         String Title = txtTitle.getText();
         Float PersonalRating = Float.valueOf(txtPersonalRating.getText());
@@ -71,6 +79,11 @@ public class MovieDataInputs {
         }
     }
 
+    /**
+     * Used to edit the IMDBRating
+     * @param actionEvent
+     * @throws Exception
+     */
     public void handleEditIMDB(ActionEvent actionEvent) throws Exception {
         int id = selectMovie.getId();
         String placeHolderTitle = selectMovie.getTitle();
@@ -83,13 +96,19 @@ public class MovieDataInputs {
 
     }
 
-
+    /**
+     * Sets the selected movie
+     * @param m
+     */
     public void setSelectMovie(Movie m) {
         selectMovie = m;
         txtPersonalRating.setText(String.valueOf(selectMovie.getPersonalRating()));
     }
 
-
+    /**
+     * Used to close the window if you don't want to create a movie
+     * @param actionEvent
+     */
     public void handleCreationCancel(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();
