@@ -361,10 +361,12 @@ public class MainController extends BaseController implements Initializable {
 
 
     public void handlePlayMovie(ActionEvent actionEvent) { //Allows the person to play the chosen movie.
-
+        // Check if a movie has been selected by the user
         if (selectedMovie == null) {
+            // If no movie has been selected, alert the user to choose a movie
             alertUser("Incorrect filepath, try choosing a movie");
         } else {
+            // If a movie has been selected, call the play method on the movieModel object
             movieModel.play(selectedMovie);
         }
     }
