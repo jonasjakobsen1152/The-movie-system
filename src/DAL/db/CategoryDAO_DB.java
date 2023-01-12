@@ -27,6 +27,7 @@ public class CategoryDAO_DB implements ICategoriesDAO {
 
         List<Category> categoryList = new ArrayList<>();
 
+        //SQL string that selects everything from the table "Categories"
         String sql = "SELECT * FROM Categories;";
         try (Connection connection = dbConnector.getConnection()) {
 
@@ -54,7 +55,7 @@ public class CategoryDAO_DB implements ICategoriesDAO {
      * @throws Exception
      */
     public Category createCategory(String categoryName) throws Exception {
-
+        //SQL string that creates a new category in the "Categories" table
         String sql = "INSERT INTO Categories (Category) VALUES (?);";
 
         try (Connection connection = dbConnector.getConnection()) {
@@ -71,6 +72,7 @@ public class CategoryDAO_DB implements ICategoriesDAO {
                 id = rs.getInt(1);
             }
 
+            //Creates a new category based on the given name
             Category category = new Category(id, categoryName);
             return category;
         } catch (SQLException ex) {
@@ -79,12 +81,15 @@ public class CategoryDAO_DB implements ICategoriesDAO {
         }
     }
 
-
+    /**
+     * Delete a category in the table Categories
+     * @param deletedCategory
+     */
     @Override
     public void deleteCategory(Category deletedCategory) {
         try(Connection conn = dbConnector.getConnection()) {
 
-
+            //SQL string that deletes a category from the "Categories" table
             String sql = "" + "DELETE FROM Categories WHERE Category = (?) AND CategoryID = (?);";
             PreparedStatement stmt = conn.prepareStatement(sql);
 

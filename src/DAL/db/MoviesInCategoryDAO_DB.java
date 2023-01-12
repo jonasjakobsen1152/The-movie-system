@@ -15,6 +15,12 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
 
     public MoviesInCategoryDAO_DB(){dbConnector = new MyDatabaseConnector();}
 
+    /**
+     * Gets needed information from the CatMovie table
+     * @param movieNumber
+     * @return List<Movie>
+     * @throws SQLException
+     */
     @Override
     public List<Movie> getCategoryMovies(int movieNumber) throws SQLException {
         List<Movie> moviesInCategoryList = new ArrayList<>();
@@ -44,6 +50,12 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
         return moviesInCategoryList;
     }
 
+    /**
+     * Links a movie and a category together so the application knows that the movie is a given category.
+     * @param selectedCategory
+     * @param selectedMovie
+     * @param catMovieId
+     */
     @Override
     public void addMovieToCategory(Category selectedCategory, Movie selectedMovie, int catMovieId) {
 
@@ -73,6 +85,12 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
 
     }
 
+    /**
+     * Removes a movie from a category in the CatMovieTable
+     * @param category
+     * @param selectedMovie
+     * @param selectedCMId
+     */
     @Override
     public void deleteMovieFromCategory(Category category, Movie selectedMovie, int selectedCMId) {
 
@@ -96,8 +114,12 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
     }
 
 
-
-
+    /**
+     * Gets the CatMovieID from the CatMovie table
+     * @param movieID
+     * @param categoryID
+     * @return int
+     */
         public int getCatMovieID(int movieID, int categoryID){
         int catmID = 0;
 

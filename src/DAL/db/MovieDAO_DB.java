@@ -13,13 +13,19 @@ public class MovieDAO_DB implements IMovieDAO {
         databaseConnector = new MyDatabaseConnector();
     }
 
-@Override
+    /**
+     * Gets needed information from the Movie table
+     * @return List<Movie>
+     * @throws Exception
+     */
+    @Override
     public List<Movie> getAllMovies() throws Exception {
         ArrayList<Movie> allMovies = new ArrayList<>();
 
         try(Connection conn = databaseConnector.getConnection();
         Statement stmt = conn.createStatement())
         {
+            //SQL string that gets all information from the Movie table
             String sql = "Select * From dbo.Movie;";
 
             ResultSet rs = stmt.executeQuery(sql);
@@ -27,9 +33,9 @@ public class MovieDAO_DB implements IMovieDAO {
             while (rs.next()) {
                 int id = rs.getInt("MovieID");
                 String title = rs.getString("Title");
-                float IMDBRating = rs.getFloat("PersonalRating"); //todo Check if correct
-                float PersonalRating = rs.getFloat("IMDBRating"); //TODO check if correct
-                String filePath = rs.getString("FilePath"); // TODO CHECK IF CORRECT
+                float IMDBRating = rs.getFloat("PersonalRating");
+                float PersonalRating = rs.getFloat("IMDBRating");
+                String filePath = rs.getString("FilePath");
 
                 Movie movie = new Movie(id,title,PersonalRating,IMDBRating,filePath);
                 allMovies.add(movie);
@@ -45,10 +51,19 @@ public class MovieDAO_DB implements IMovieDAO {
 
     }
 
-
+    /**
+     * Creates a new movie
+     * @param title
+     * @param imdbRating
+     * @param personalRating
+     * @param filePath
+     * @return Movie
+     * @throws Exception
+     */
     @Override
     public Movie createMovie(String title, float imdbRating, float personalRating, String filePath) throws Exception {
 
+        //SQL string that creates a new movie in the Movie table
         String sql = "INSERT INTO movie (Title,IMDBRating,PersonalRating,FilePath) VALUES (?,?,?,?);";
 
 
@@ -80,6 +95,10 @@ public class MovieDAO_DB implements IMovieDAO {
         }
     }
 
+    /**
+     * Updates the IMDBRating in the Movie table
+     * @param movie
+     */
     public void updateMovie(Movie movie) {
         try (Connection conn = databaseConnector.getConnection()) {
             String sql = "Update movie set Title = ?, IMDBRating = ?, PersonalRating = ?, FilePath = ? WHERE MovieID = ?;";
@@ -102,10 +121,15 @@ public class MovieDAO_DB implements IMovieDAO {
     }
 
 
-
+    /**
+     * Deletes a movie from the Movie table
+     * @param movie
+     * @throws Exception
+     */
     @Override
     public void deleteMovie(Movie movie) throws Exception {
         try (Connection conn = databaseConnector.getConnection()) {
+            //SQL string that deletes a movie based on Title and MovieID in the movie table
             String sql = "DELETE FROM Movie WHERE Title = (?) AND MovieID = (?);";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
