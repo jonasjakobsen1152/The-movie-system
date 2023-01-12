@@ -404,30 +404,47 @@ public class MainController extends BaseController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
+/*
+    This method checks for movies considered old. If there is any a window will be opened and the user will get the ability to delete movies from a list.
+    When done the user can close
+ */
     public void checkOldMovies() throws Exception {
+        // Create an ArrayList to store movies that are considered "old"
         ArrayList<Movie> outDatedMovies = oldMovies();
+
+        // Check if there are any old movies in the list
         if (outDatedMovies.size() != 0) {
+            // Create an observable list of the old movies
             moviesToBeReViewed = FXCollections.observableArrayList();
             moviesToBeReViewed.addAll(oldMovies());
 
+            // Check if a check for old movies has been performed previously
             if(oldMoviesChecked == false) {
+                // Load the FXML file for displaying old movies
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/GUI/View/OldMovies.fxml"));
                 AnchorPane pane = (AnchorPane) loader.load();
-                movieDataInputs = loader.getController();
-                movieDataInputs.saveController(this, moviesToBeReViewed); //Saves the controller object so MovieDataInput can update the TableView when a movie is deleted.
 
+                // Get the controller for the FXML file and save the current controller object
+                movieDataInputs = loader.getController();
+                movieDataInputs.saveController(this, moviesToBeReViewed);
+
+                // Create a new stage for displaying old movies
                 dialogWindow = new Stage();
                 dialogWindow.setTitle("Old Movies");
                 dialogWindow.setResizable(false);
+
+                // Set the scene to the loaded FXML file
                 Scene scene = new Scene(pane);
                 dialogWindow.setScene(scene);
 
+                // Show the stage and set oldMoviesChecked to true
                 dialogWindow.showAndWait();
                 oldMoviesChecked = true;
             }
             else {
+                // Set the selected list in the movieDataInputs object to moviesToBeReViewed
+                // and show the dialogWindow stage
                 movieDataInputs.setSelectedList(moviesToBeReViewed);
                 dialogWindow.show();
             }
