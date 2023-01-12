@@ -318,7 +318,7 @@ public class MainController extends BaseController implements Initializable {
     Adds a movie from the database to the chosen category.
     This method allows you to add a movie to the specific category.
      */
-    public void handleAddMovieToCategory(ActionEvent actionEvent) {
+    public void handleAddMovieToCategory(ActionEvent actionEvent) throws SQLException {
         selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
         int sizeOfCategory = moviesInCategoryModel.getMoviesToBeViewed().size();
         Movie selectedMovie = lstMovies.getSelectionModel().getSelectedItem();
@@ -330,6 +330,7 @@ public class MainController extends BaseController implements Initializable {
 
             int highestCatMovieID = moviesInCategoryModel.getCatMovieID(lastMovieID, selectedCategoryID);
             moviesInCategoryModel.addMovieToCategory(selectedCategory,selectedMovie, highestCatMovieID + 1);
+            updateMovieToCategoryModel();
         }
         else {
             moviesInCategoryModel.addMovieToCategory(selectedCategory, selectedMovie, 1);
