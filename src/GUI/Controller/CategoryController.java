@@ -18,7 +18,8 @@ public class CategoryController extends BaseController {
         categoryModel = new CategoryModel();
     }
 
-    public void handleCreateCategory(ActionEvent actionEvent) {
+
+    public void handleCreateCategory(ActionEvent actionEvent) { //A method that creates a category
         String categoryName = txtCategory.getText();
         try {
             categoryModel.createCategory(categoryName);
@@ -32,11 +33,11 @@ public class CategoryController extends BaseController {
     }
 
     @Override
-    public void setup() {
+    public void setup() { //  This code is used to initialize the categoryModel field with the appropriate data or object when the program starts.
         categoryModel = getModel().getCategoryModel();
     }
 
-    public void cancelCreateCategory(ActionEvent actionEvent) {
+    public void cancelCreateCategory(ActionEvent actionEvent) { //This code is used to cancel the creation of a category
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }

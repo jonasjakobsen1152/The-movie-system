@@ -71,7 +71,7 @@ public class MovieDataInputs {
         Float IMDBRating = Float.valueOf(txtIMDBRating.getText());
         String FilePath = txtFilePath.getText();
         try {
-           movieModel.createMovie(Title, PersonalRating, IMDBRating, FilePath);
+           movieModel.createMovie(Title,IMDBRating,PersonalRating, FilePath);
            Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
            stage.close();
         } catch (Exception e) {
