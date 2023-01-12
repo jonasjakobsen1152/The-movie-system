@@ -7,6 +7,12 @@ import java.util.List;
 
 public class MovieSearcher {
 
+    /*
+    The method creates an empty list called "searchResult" which will hold the movies that match the query,
+    it then uses a for-each loop to iterate over each movie in the "searchBase" list.
+    If the query matches any of the 3 properties, the code adds the movie to the "searchResult" list.
+    "searchResult" list which contains all the movies that matched the query.
+     */
     public List<Movie> search(List<Movie> searchBase, String query){
        List<Movie> searchResult = new ArrayList<>();
 

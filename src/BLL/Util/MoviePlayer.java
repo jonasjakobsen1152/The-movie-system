@@ -11,6 +11,13 @@ import java.io.IOException;
 
 public class MoviePlayer {
 
+
+    /*The method takes in a "Movie" object, which has a filepath property, as an argument.
+    The code first gets the filepath of the movie by calling the "getFilepath()" method on the "selectedMovie" object.
+    Then it creates a "File" object using the filepath. It then checks if the file exists, if it does, it uses the "Desktop" class to open the file.
+    If the file does not exist, the code calls an "alertUser" method and passes in the string "Incorrect filepath" as an argument.
+    */
+
     public void play(Movie selectedMovie) {
         String filePath = selectedMovie.getFilepath();
 
