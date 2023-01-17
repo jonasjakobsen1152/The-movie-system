@@ -323,17 +323,31 @@ public class MainController extends BaseController implements Initializable {
         int sizeOfCategory = moviesInCategoryModel.getMoviesToBeViewed().size();
         Movie selectedMovie = lstMovies.getSelectionModel().getSelectedItem();
         Category selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
-        if(sizeOfCategory != 0){
-            Movie newMovie = lstMovieByCategory.getItems().get(sizeOfCategory-1);
-            int lastMovieID = newMovie.getId();
-            int selectedCategoryID = selectedCategory.getId();
-
-            int highestCatMovieID = moviesInCategoryModel.getCatMovieID(lastMovieID, selectedCategoryID);
-            moviesInCategoryModel.addMovieToCategory(selectedCategory,selectedMovie, highestCatMovieID + 1);
-            updateMovieToCategoryModel();
+        if(selectedCategory == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Select a category");
+            alert.setHeaderText("Choose a category to add to");
+            alert.show();
+        }
+        else if (selectedMovie == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Select a movie");
+            alert.setHeaderText("Choose a movie to add");
+            alert.show();
         }
         else {
-            moviesInCategoryModel.addMovieToCategory(selectedCategory, selectedMovie, 1);
+            
+            if (sizeOfCategory != 0) {
+                Movie newMovie = lstMovieByCategory.getItems().get(sizeOfCategory - 1);
+                int lastMovieID = newMovie.getId();
+                int selectedCategoryID = selectedCategory.getId();
+
+                int highestCatMovieID = moviesInCategoryModel.getCatMovieID(lastMovieID, selectedCategoryID);
+                moviesInCategoryModel.addMovieToCategory(selectedCategory, selectedMovie, highestCatMovieID + 1);
+                updateMovieToCategoryModel();
+            } else {
+                moviesInCategoryModel.addMovieToCategory(selectedCategory, selectedMovie, 1);
+            }
         }
     }
 
