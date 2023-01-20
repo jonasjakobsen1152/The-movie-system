@@ -320,9 +320,7 @@ public class MainController extends BaseController implements Initializable {
      */
     public void handleAddMovieToCategory(ActionEvent actionEvent) throws SQLException {
         selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
-        int sizeOfCategory = moviesInCategoryModel.getMoviesToBeViewed().size();
-        Movie selectedMovie = lstMovies.getSelectionModel().getSelectedItem();
-        Category selectedCategory = lstCategories.getSelectionModel().getSelectedItem();
+        selectedMovie = lstMovies.getSelectionModel().getSelectedItem();
         if(selectedCategory == null){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Select a category");
@@ -336,20 +334,9 @@ public class MainController extends BaseController implements Initializable {
             alert.show();
         }
         else {
-            
-            if (sizeOfCategory != 0) {
-                Movie newMovie = lstMovieByCategory.getItems().get(sizeOfCategory - 1);
-                int lastMovieID = newMovie.getId();
-                int selectedCategoryID = selectedCategory.getId();
-
-                int highestCatMovieID = moviesInCategoryModel.getCatMovieID(lastMovieID, selectedCategoryID);
-                moviesInCategoryModel.addMovieToCategory(selectedCategory, selectedMovie, highestCatMovieID + 1);
-                updateMovieToCategoryModel();
-            } else {
-                moviesInCategoryModel.addMovieToCategory(selectedCategory, selectedMovie, 1);
+                moviesInCategoryModel.addMovieToCategory(selectedCategory, selectedMovie);
             }
         }
-    }
 
     private void updateMovieToCategoryModel() throws SQLException { //If a movie has been added to the category, it tells the program to update the category, so you can see the movie.
         MoviesInCategoryModel updateMovieToCategoryModel = new MoviesInCategoryModel();

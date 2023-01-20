@@ -20,8 +20,8 @@ public class MoviesInCategoryManager {
         return moviesInCategoryDAO_DB.getCatMovieID(movieID, categoryID);
     }
 
-    public void addMovieToCategory(Category category, Movie movie, int catMovieID){
-        moviesInCategoryDAO_DB.addMovieToCategory(category,movie,catMovieID);
+    public void addMovieToCategory(Category category, Movie movie){
+        moviesInCategoryDAO_DB.addMovieToCategory(category,movie);
     }
 
     public void deleteMovieFromCategory(Movie selectedMovie, Category selectedCategory, int catMovieID){

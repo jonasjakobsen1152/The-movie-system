@@ -33,8 +33,8 @@ public class MoviesInCategoryModel {
         return moviesInCategoryManager.getCatMovieID(movieID, categoryID);
     }
 
-    public void addMovieToCategory(Category category, Movie movie, int catMovieID){
-        moviesInCategoryManager.addMovieToCategory(category,movie,catMovieID);
+    public void addMovieToCategory(Category category, Movie movie){
+        moviesInCategoryManager.addMovieToCategory(category,movie);
         moviesToBeViewed.add(movie);
     }
 

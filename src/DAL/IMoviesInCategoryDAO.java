@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface IMoviesInCategoryDAO {
     public List<Movie> getCategoryMovies(int movieNumber) throws SQLException;
-    public void addMovieToCategory(Category selectedCategory, Movie selectedMovie, int catMovieId);
+    public void addMovieToCategory(Category selectedCategory, Movie selectedMovie);
     public void deleteMovieFromCategory(Category category, Movie selectedMovie, int selectedCMId);
 }

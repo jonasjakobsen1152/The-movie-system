@@ -54,10 +54,9 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
      * Links a movie and a category together so the application knows that the movie is a given category.
      * @param selectedCategory
      * @param selectedMovie
-     * @param catMovieId
      */
     @Override
-    public void addMovieToCategory(Category selectedCategory, Movie selectedMovie, int catMovieId) {
+    public void addMovieToCategory(Category selectedCategory, Movie selectedMovie) {
 
         String sql = "INSERT INTO CatMovie ( MovieId, CategoryID) VALUES (?,?);";
 
@@ -68,9 +67,7 @@ public class MoviesInCategoryDAO_DB implements IMoviesInCategoryDAO {
 
             int selectedCategoryID = selectedCategory.getId();
             int selectedMovieID = selectedMovie.getId();
-            int catMovieID = catMovieId;
 
-            //stmt.setInt(1, catMovieID);
             stmt.setInt(1, selectedMovieID);
             stmt.setInt(2, selectedCategoryID);
 
